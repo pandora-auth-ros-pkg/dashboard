@@ -1,7 +1,3 @@
-SERVER_SCRIPTS := $(shell find services -name '*.js' && find utils -name '*.js')
-TESTS := $(shell find spec -name '*.js')
-BINARIES := $(shell find bin)
-PUBLIC_SCRIPTS := $(shell find public/scripts -name '*.js')
 
 install:
 	npm install
