@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width'>
+    <title>Web Client</title>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" type="text/css" media="all"/>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./build/main.css" type="text/css" media="all" />
+  </head>
+  <body>
+
+    <!-- Main -->
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Left sidebar -->
+        <div class="col-sm-3" id="slide-menu">
+          <hr>
+          <a href="#"><strong><i class="fa fa-wrench"></i> Robot</strong></a>
+          <hr>
+          <ul class="nav nav-stacked">
+            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">Status <i class="fa fa-chevron-down"></i></a>
+              <ul class="nav nav-stacked collapse in" id="userMenu">
+                <li class="active menu-item"> <a href="#/overview"><i class="fa fa-home"></i> Overview</a></li>
+                <li class="menu-item"><a href="#/agent"><i class="fa fa-user-secret"></i> Agent</a></li>
+                <li class="menu-item"><a href="#/sensors"><i class="fa fa-gears"></i> Sensors </a></li>
+                <li class="menu-item"><a href="#/console"><i class="fa fa-code"></i> Console</a></li>
+                <li class="menu-item"><a href="#/camera"><i class="fa fa-video-camera"></i> Cameras</a></li>
+              </ul>
+            </li>
+            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2"> Reports <i class="fa fa-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu2">
+                <li class="menu-item"><a href="#"><i class="fa fa-map-marker"></i> Geotiff</a> </li>
+                <li class="menu-item"><a href="#"><i class="fa fa-exclamation-triangle"></i> Alerts</a> </li>
+              </ul>
+            </li>
+          </ul>
+          <hr>
+          <a href="#"><strong><i class="fa fa-link"></i> Settings</strong></a>
+          <hr>
+          <ul class="nav nav-pills nav-stacked">
+            <li class="nav-header"></li>
+            <li class="menu-item"><a href="#"><i class="fa fa-list"></i> Layouts &amp; Templates</a></li>
+            <li class="menu-item"><a href="#"><i class="fa fa-briefcase"></i> Toolbox</a></li>
+            <li class="menu-item"><a href="#"><i class="fa fa-link"></i> Widgets</a></li>
+          </ul>
+          <hr>
+          <a href="#"><strong><i class="fa fa-bar-chart"></i> Statistics</strong></a>
+          <hr>
+          <ul class="nav nav-stacked">
+            <li class="menu-item"><a href="#"><i class="fa fa-list-alt"></i> Reports</a></li>
+            <li class="menu-item"><a href="#"><i class="fa fa-book"></i> Pages</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Left sidebar -->
+
+    <!-- Dashboard -->
+
+    <!--Should be 9 if we don't use a slider.-->
+    <div id="main-content">
+      <!-- header -->
+      <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" id="slide-menu-button" href="#"><i class="fa fa-bars"></i></a>
+            <span class="navbar-brand"><strong>PANDORA Robotics </strong></span>
+          </div>
+        </div>
+        <!-- /container -->
+      </div>
+      <!-- /Header -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <ul class="list-inline pull-right">
+            <li><a href="#"><i class="fa fa-cog"></i></a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-comment"></i><span class="count">3</span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">1. Is there a way..</a></li>
+                <li><a href="#">2. Hello, admin. I would..</a></li>
+                <li><a href="#"><strong>All messages</strong></a></li>
+              </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-user"></i></a></li>
+            <li><a title="Add Widget" data-toggle="modal" href="#addWidgetModal"><span class="fa fa-plus-sign"></span> Add Widget</a></li>
+          </ul>
+          <a href="#"><strong><i class="fa fa-dashboard"></i> Dashboard</strong></a>
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="main-dashboard-content"> </div>
+        </div>
+      </div>
+      <hr>
+      <a href="#"><strong><i class="fa fa-comment"></i> Alerts</strong></a>
+      <hr>
+      <footer class="text-center">Footer</footer>
+    </div>
+  </div>
+
+  <!--/Dashboard -->
+
+  <!-- /Main -->
+
+  <div class="modal" id="addWidgetModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Add Widget</h4>
+        </div>
+        <div class="modal-body">
+          <p>Add a widget stuff here..</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn">Close</a>
+          <a href="#" class="btn btn-primary">Save changes</a>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dalog -->
+  </div>
+  <!-- /.modal -->
+
+  <!--Browserify bundle-->
+  <script src="./build/bundle.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./scripts/ui.js" type="text/javascript" charset="utf-8"></script>
+
+  </body>
+</html>

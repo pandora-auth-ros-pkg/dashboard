@@ -1,0 +1,30 @@
+
+<div class="col-md-12">
+    <div class="cpu-temp-indicator panel panel-default">
+
+        <div class="panel-heading">
+            <h4>
+                <span><i class="fa fa-heartbeat"></i></span> &nbsp;
+                <span><strong>CPU Temperatures</strong></span>
+            </h4>
+        </div>
+
+        <div class="panel-body">
+
+            {{#each temperature}}
+            <h4>{{this}} &deg;C</h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active"
+                    role="progressbar"
+                    aria-valuenow="{{this}}"
+                    aria-valuemin="35" aria-valuemax="80"
+                    style="width: {{this}}%">
+
+                    <span class='sr-only'>{{this}}</span>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+    </div>
+</div>

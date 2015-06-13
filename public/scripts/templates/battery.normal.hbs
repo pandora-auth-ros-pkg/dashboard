@@ -1,0 +1,25 @@
+
+<div class="battery-indicator panel panel-default">
+    <div class="panel-heading">
+        <h4>
+            <span><i class="fa fa-bolt"></i></span> &nbsp;
+            <span><strong>{{name}}</strong></span>
+            <span class="pull-right">{{voltage}} V</span>
+        </h4>
+    </div>
+    <div class="panel-body">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active"
+                  role="progressbar"
+                  aria-valuenow="{{voltage}}"
+                  aria-valuemin="{{min}}"
+                  aria-valuemax="{{max}}"
+                  style="width: {{percentage}}%">
+
+                <span class='sr-only'>{{percentage}}</span>
+
+            </div>
+
+        </div>
+    </div>
+</div>

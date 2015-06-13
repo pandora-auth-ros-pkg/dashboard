@@ -1,0 +1,135 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('pandora-web-client:server');
+var http = require('http');
+var io = require('socket.io');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP and socket.io server.
+ */
+
+var server = http.createServer(app);
+var IOServer = io(server);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Listen for socket.io events.
+ */
+
+IOServer.on('connection', function(socket) {
+  console.log('A client connected to the socket.io server.');
+
+  /**
+   * Register services and pass data to the browser.
+   */
+
+  socket.on('service/sensors/battery', function(msg) {
+    var psu = {
+      name: msg.name[0],
+      voltage: msg.voltage[0]
+    };
+    var motors = {
+      name: msg.name[1],
+      voltage: msg.voltage[1]
+    };
+    IOServer.emit('web/sensors/battery/psu', psu);
+    IOServer.emit('web/sensors/battery/motors', motors);
+  });
+
+  socket.on('service/sensors/temperature', function(msg) {
+    IOServer.emit('web/sensors/temperature', msg);
+  });
+
+  socket.on('service/sensors/thermal', function(msg) {
+    IOServer.emit('web/sensors/thermal', msg);
+  });
+
+  socket.on('service/sensors/co2', function(msg) {
+    IOServer.emit('web/sensors/co2', msg);
+  });
+
+  socket.on('service/sensors/imu', function(msg) {
+    IOServer.emit('web/sensors/imu', msg);
+  });
+
+  socket.on('service/sensors/sonar', function(left_range, right_range) {
+    IOServer.emit('web/sensors/sonar', left_range, right_range);
+  });
+});
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server 'error' event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server 'listening' event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
