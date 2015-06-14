@@ -11,6 +11,7 @@ var LayoutManager = require('./layout.manager');
 var OverView = require('../views/overview');
 var SensorsLayout =  require('../views/layouts/sensors.layout');
 var CamerasLayout = require('../views/layouts/cameras.layout');
+var AgentLayout = require('../views/layouts/agent.layout');
 
 
 var Router = Backbone.Router.extend({
@@ -18,14 +19,17 @@ var Router = Backbone.Router.extend({
   routes: {
     'sensors': 'renderSensors',
     'overview': 'renderOverview',
-    'camera': 'renderCameras'
+    'camera': 'renderCameras',
+    'agent': 'renderAgent',
+    '*path': 'renderOverview'
   },
 
   manager: new LayoutManager({
     layouts: {
     'sensors': new SensorsLayout(),
     'cameras': new CamerasLayout(),
-    'overview': new OverView()
+    'overview': new OverView(),
+    'agent': new AgentLayout()
     }
   }),
 
@@ -36,6 +40,10 @@ var Router = Backbone.Router.extend({
 
   renderOverview: function() {
     this.manager.render('overview');
+  },
+
+  renderAgent: function() {
+    this.manager.render('agent');
   },
 
   renderCameras: function() {

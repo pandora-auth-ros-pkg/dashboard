@@ -1,0 +1,58 @@
+
+/**
+ * Colors
+ */
+
+$material-green: #8BC34A;
+$material-gray: #607D8B;
+$material-light-blue: #03A9F4;
+
+/**
+ * Typography
+ */
+
+.fa-5x {
+    font-size: 5em !important;
+}
+
+.fa-2x {
+    font-size: 2em !important;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+/**
+ * Panels.
+ */
+
+.panel-green {
+    border-color: $material-green;
+
+    .panel-heading {
+        border-color: $material-green;
+        color: white;
+        background-color: $material-green;
+    }
+}
+
+.panel-gray {
+    border-color: $material-gray;
+
+    .panel-heading {
+        border-color: $material-gray;
+        color: white;
+        background-color: $material-gray;
+    }
+}
+
+.panel-yellow {
+    border-color: $material-light-blue;
+
+    .panel-heading {
+        border-color: $material-light-blue;
+        color: white;
+        background-color: $material-light-blue;
+    }
+}
