@@ -10,7 +10,7 @@ var rosBridgePort = require('../utils/env').rosBridgePort;
  */
 
 var SERVICE_NAME = 'thermal';
-var SUBSCRIBED_TOPIC = '/sensors/thermal_mean';
+var SUBSCRIBED_TOPIC = '/vision/thermal_direction_alert';
 
 /**
  * Load dependencies.
@@ -33,7 +33,7 @@ var ws = new webSocket('ws://' + masterIP + ':' + rosBridgePort);
 var sub = {
   op: 'subscribe',
   topic: SUBSCRIBED_TOPIC,
-  type: 'pandora_sensor_msgs/ThermalMeanMsg'
+  type: 'pandora_vision_msgs/ThermalAlertVector'
 };
 
 ws.on('open', function() {
@@ -51,6 +51,6 @@ ws.on('open', function() {
 
 ws.on('message', function(chunk) {
   var data = JSON.parse(chunk.toString());
-  console.log(data.msg);
-  socket.emit('service/sensors/thermal', data.msg.thermal_mean);
+  console.log(data.msg.alerts[0].temperature);
+  socket.emit('service/sensors/thermal', data.msg.alerts[0].temperature);
 });
