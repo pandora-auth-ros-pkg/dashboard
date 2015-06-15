@@ -76,6 +76,11 @@ IOServer.on('connection', function(socket) {
   socket.on('service/sensors/sonar', function(left_range, right_range) {
     IOServer.emit('web/sensors/sonar', left_range, right_range);
   });
+
+  socket.on('service/robot/state', function(state) {
+    console.log(state);
+    IOServer.emit('web/robot/state', state);
+  });
 });
 
 /**

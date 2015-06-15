@@ -22,9 +22,9 @@ var Agent = Backbone.Model.extend({
     state: 'OFF',
     strategy: 'Mission',
     dispatchertopic: 'agent:change',
-    stateTopic: '/web/robot/state',
-    victimFoundTopic: '/web/victim/found',
-    currentTargetTopic: '/web/agent/target',
+    stateTopic: 'web/robot/state',
+    victimFoundTopic: 'web/victim/found',
+    currentTargetTopic: 'web/agent/target',
     target: {
       id: '0',
       victimFrameId: '/map',
@@ -72,8 +72,8 @@ var Agent = Backbone.Model.extend({
     console.log('Listening on topic ' + this.get('currentTargetTopic'));
 
     var _this = this;
-    ioClient.on(this.get('stateTopic'), function(msg) {
-      _this.set({'state': msg.state});
+    ioClient.on(this.get('stateTopic'), function(state) {
+      _this.set({'state': state});
     });
 
     ioClient.on(this.get('victimFoundTopic'), function(msg) {
