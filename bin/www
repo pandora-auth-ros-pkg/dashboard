@@ -86,6 +86,14 @@ IOServer.on('connection', function(socket) {
     console.log(alert);
     IOServer.emit('web/victim/alert', alert);
   });
+
+  /**
+   * Events from the operator.
+   */
+
+  socket.on('web/victim/response', function(res) {
+    IOServer.emit('service/victim/response', res);
+  });
 });
 
 /**

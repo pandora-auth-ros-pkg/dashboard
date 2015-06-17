@@ -26,15 +26,15 @@ socket.on('connect', function() {
  * Set up subscribers and publishers.
  */
 
-var validateVictimSub = zmq.socket('sub');
-var validateVictimPub = zmq.socket('pub');
+var alertReceiver = zmq.socket('sub');
+var validator = zmq.socket('pub');
 
 var validateVictimTopic = 'victim_goal';
 var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
 
-validateVictimSub.subscribe('victim_goal');
+alertReceiver.subscribe('victim_goal');
 
-validateVictimSub.on('message', function(data) {
+alertReceiver.on('message', function(data) {
 
   // Remove the topic name.
   var msg = data.toString('utf8', validateVictimTopicLength).replace(/\s/g, '');
@@ -46,9 +46,14 @@ validateVictimSub.on('message', function(data) {
   socket.emit('service/victim/alert', msg);
 });
 
-socket.on('service/victim/validation', function(msg) {
-  validateVictimPub.send(['victim_validation', JSON.stringify(msg)]);
+socket.on('service/victim/response', function(res) {
+  if (res === true) {
+    console.log('the victim is valid.');
+  } else {
+    console.log('the victim is not valid');
+  }
+  validator.send(['victim_validation', res]);
 });
 
-validateVictimSub.connect('tcp://' + masterIP + ':6666');
-validateVictimSub.bindSync('tcp://127.0.0.1:7777');
+alertReceiver.connect('tcp://' + masterIP + ':6666');
+validator.bindSync('tcp://127.0.0.1:7777');

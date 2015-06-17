@@ -1,0 +1,39 @@
+<div class="col-md-12">
+    <div class="panel">
+        <div class="panel-heading">
+            <i class="fa fa-inbox fa-2x"></i>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{alert.probability}}</span>
+                    Probability
+                </li>
+                <li class="list-group-item">
+                    {{#each alert.sensors}}
+                    <span class="badge">{{this}}</span>
+                    {{/each}}
+                    Sensors
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{alert.x}}</span>
+                    X-axis
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{alert.y}}</span>
+                    Y-axis
+                </li>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <button id="accept-victim" class="btn btn-success btn-lg btn-block" type="submit"> Accept </button>
+                </div>
+                <div class="col-md-6">
+                    <button id="reject-victim" class="btn btn-danger btn-lg btn-block" type="submit"> Reject </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

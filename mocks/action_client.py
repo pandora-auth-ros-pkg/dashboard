@@ -8,14 +8,14 @@ from pandora_gui_msgs.msg import ValidateVictimGUIAction, ValidateVictimGUIGoal
 
 topic = '/gui/validate_victim'
 
-rospy.init_node('yoasdfa')
+rospy.init_node('validation_client')
 
 client = Client(topic, ValidateVictimGUIAction)
 goal = ValidateVictimGUIGoal()
 goal.victimFoundx = random() * 10
 goal.victimFoundy = random() * 10
 goal.probability = 0.6
-goal.sensorIDsFound = ['so2', 'yolo']
+goal.sensorIDsFound = ['so2', 'thermal']
 
 print('Waiting for the GUI action server.')
 client.wait_for_server()

@@ -1,0 +1,76 @@
+<div class="col-md-4">
+    <div class="panel panel-green">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-3 ">
+                    <i class="fa fa-user fa-5x"></i>
+                </div>
+                <div class="col-xs-9 text-right">
+                    <div class="huge">
+                        #{{target.id}}
+                    </div>
+                    <p>Current target</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <strong>Target info &nbsp</strong>
+            <a data-toggle="collapse" data-target="#target-info" aria-controls="target-orientation">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+            <ul class="list-group collapse" id="target-info">
+                <li class="list-group-item">
+                    <strong>Frame ID: &nbsp </strong>
+                    <span>{{target.victimFrameId}}</span>
+                </li>
+                <li class="list-group-item">
+                    <strong>Position: &nbsp </strong>
+                    <a data-toggle="collapse" data-target="#target-position" aria-controls="target-position">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                    <ul class="list-group collapse" id="target-position">
+                        <li class="list-group-item">
+                            x: &nbsp {{target.position.x}}
+                        </li>
+                        <li class="list-group-item">
+                            y: &nbsp {{target.position.y}}
+                        </li>
+                        <li class="list-group-item">
+                            z: &nbsp {{target.position.z}}
+                        </li>
+                    </ul>
+                </li>
+                <li class="list-group-item">
+                    <strong>Orientation: &nbsp </strong>
+                    <a data-toggle="collapse" data-target="#target-orientation" aria-controls="target-orientation">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                    <ul class="list-group collapse" id="target-orientation">
+                        <li class="list-group-item">
+                            x: &nbsp {{target.orientation.x}}
+                        </li>
+                        <li class="list-group-item">
+                            y: &nbsp {{target.orientation.y}}
+                        </li>
+                        <li class="list-group-item">
+                            z: &nbsp {{target.orientation.z}}
+                        </li>
+                        <li class="list-group-item">
+                            w: &nbsp {{target.orientation.w}}
+                        </li>
+                    </ul>
+                </li>
+                <li class="list-group-item">
+                    <strong>Probability: &nbsp </strong>{{target.probability}}
+                </li>
+                <li class="list-group-item">
+                    <strong>Sensors: </strong>
+                    {{#each target.sensors}} &nbsp
+                    <span class="label label-primary">{{this}}</span>
+                    {{/each}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

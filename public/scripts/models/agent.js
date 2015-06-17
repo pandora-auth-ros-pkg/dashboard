@@ -62,7 +62,17 @@ var Agent = Backbone.Model.extend({
     });
 
     this.on('change:alert', function() {
+      console.log('alert arrived.');
       Dispatcher.trigger('agent:victim:alert', _this.attributes);
+    });
+    this.on('change:state', function() {
+      Dispatcher.trigger('agent:change:state', _this.attributes);
+    });
+    this.on('change:mission', function() {
+      Dispatcher.trigger('agent:change:mission', _this.attributes);
+    });
+    this.on('change:target', function() {
+      Dispatcher.trigger('agent:change:target', _this.attributes);
     });
   },
 

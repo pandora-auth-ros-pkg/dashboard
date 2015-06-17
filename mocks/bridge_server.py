@@ -27,11 +27,12 @@ class BridgeServer(object):
         # ZMQ server configuration.
         self.context = zmq.Context()
 
-        self.victim_sub = self.context.socket(zmq.SUB)
-        self.victim_sub.connect("tcp://127.0.0.1:7777")
+        self.response_receiver = self.context.socket(zmq.SUB)
+        self.response_receiver.connect("tcp://127.0.0.1:7777")
+        self.response_receiver.setsockopt(zmq.SUBSCRIBE, 'victim_validation')
 
-        self.victim_pub = self.context.socket(zmq.PUB)
-        self.victim_pub.bind('tcp://*:6666')
+        self.alert_publisher = self.context.socket(zmq.PUB)
+        self.alert_publisher.bind('tcp://*:6666')
 
     def handle_goals(self, goal):
 
@@ -47,10 +48,16 @@ class BridgeServer(object):
             self.action.set_preempted()
 
         # Send the goal to the subscribers.
-        self.victim_pub.send('%s %s' % ('victim_goal', self.current_goal))
-        #self.operator_responded.wait()
-        self.result.victimValid = True
+        self.alert_publisher.send('%s %s' % ('victim_goal', self.current_goal))
+        print('Checking if the operator responded...')
+        print(self.operator_responded.is_set())
+        self.operator_responded.wait()
+
+        # Send the response to the client.
+        self.result.victimValid = self.operator_response
         self.action.set_succeeded(self.result)
+
+        # Reset the environment.
         self.operator_responded.clear()
 
     def start(self):
@@ -59,9 +66,12 @@ class BridgeServer(object):
         self.action.start()
 
         while True:
-            res = self.victim_sub.recv()
-            if res:
-                self.operator_responded.set()
+            self.operator_responded.clear()
+            print('Waiting for message')
+            res = self.response_receiver.recv()
+            print(res)
+            self.operator_response = True if res == 'true' else False
+            self.operator_responded.set()
 
 
 if __name__ == '__main__':
