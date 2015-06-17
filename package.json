@@ -2,20 +2,20 @@
   "name": "pandora-dashboard",
   "description": "Monitoring app for our robots",
   "author": {
-      "name": "Sideris Konstantinos",
-      "email": "siderisk@auth.gr"
+    "name": "Sideris Konstantinos",
+    "email": "siderisk@auth.gr"
   },
   "maintainers": {
-      "name": "mujx",
-      "email": "siderisk@auth.gr"
+    "name": "mujx",
+    "email": "siderisk@auth.gr"
   },
   "homepage": "https://github.com/pandora-auth-ros-pkg/dashboard",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/pandora-auth-ros-pkg/dashboard"
+    "type": "git",
+    "url": "https://github.com/pandora-auth-ros-pkg/dashboard"
   },
   "bugs": {
-      "url": "https://github.com/pandora-auth-ros-pkg/dashboard/issues"
+    "url": "https://github.com/pandora-auth-ros-pkg/dashboard/issues"
   },
   "license": "MIT",
   "version": "0.0.0",
@@ -41,7 +41,8 @@
     "socket.io": "^1.3.5",
     "socket.io-client": "^1.3.5",
     "underscore": "^1.8.3",
-    "ws": "^0.7.2"
+    "ws": "^0.7.2",
+    "zmq": "^2.11.1"
   },
   "devDependencies": {
     "vinyl-buffer": "^1.0.0",

@@ -23,7 +23,7 @@ var Agent = Backbone.Model.extend({
     strategy: 'Mission',
     dispatchertopic: 'agent:change',
     stateTopic: 'web/robot/state',
-    victimFoundTopic: 'web/victim/found',
+    victimAlertTopic: 'web/victim/alert',
     currentTargetTopic: 'web/agent/target',
     target: {
       id: '0',
@@ -60,6 +60,10 @@ var Agent = Backbone.Model.extend({
     this.on('change', function() {
       Dispatcher.trigger(_this.get('dispatcherTopic'), _this.attributes);
     });
+
+    this.on('change:alert', function() {
+      Dispatcher.trigger('agent:victim:alert', _this.attributes);
+    });
   },
 
   /**
@@ -68,7 +72,7 @@ var Agent = Backbone.Model.extend({
 
   subscribe: function() {
     console.log('Listening on topic ' + this.get('stateTopic'));
-    console.log('Listening on topic ' + this.get('victimFoundTopic'));
+    console.log('Listening on topic ' + this.get('victimAlertTopic'));
     console.log('Listening on topic ' + this.get('currentTargetTopic'));
 
     var _this = this;
@@ -76,8 +80,9 @@ var Agent = Backbone.Model.extend({
       _this.set({'state': state});
     });
 
-    ioClient.on(this.get('victimFoundTopic'), function(msg) {
-      _this.set({'victimFoundTopic': msg.alert});
+    ioClient.on(this.get('victimAlertTopic'), function(msg) {
+      console.log(msg);
+      _this.set({'alert': msg});
     });
 
     ioClient.on(this.get('currentTargetTopic'), function(msg) {
@@ -88,7 +93,7 @@ var Agent = Backbone.Model.extend({
 
   unsubscribe: function() {
     ioClient.removeListener(this.get('target'));
-    ioClient.removeListener(this.get('victimFoundTopic'));
+    ioClient.removeListener(this.get('victimAlertTopic'));
     ioClient.removeListener(this.get('stateTopic'));
   }
 

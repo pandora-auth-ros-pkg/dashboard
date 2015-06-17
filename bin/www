@@ -81,6 +81,11 @@ IOServer.on('connection', function(socket) {
     console.log(state);
     IOServer.emit('web/robot/state', state);
   });
+
+  socket.on('service/victim/alert', function(alert) {
+    console.log(alert);
+    IOServer.emit('web/victim/alert', alert);
+  });
 });
 
 /**
