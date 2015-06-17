@@ -41,7 +41,11 @@ Start the express server with
 npm start
 ````
 
-and then start the services. Preferably with [pm2](https://github.com/Unitech/PM2).
+and then start the services with [pm2](https://github.com/Unitech/PM2).
+
+```
+pm2 start services.json
+````
 
 Connect from your browser (desktop, mobile) to port `3000`.
 
