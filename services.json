@@ -1,0 +1,52 @@
+[
+    {
+        "script": "./services/sonar.js",
+        "name": "service/sonar",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/co2.js",
+        "name": "service/co2",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/imu.js",
+        "name": "service/imu",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/battery.js",
+        "name": "service/battery",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/temperature.js",
+        "name": "service/temperature",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/robot-state.js",
+        "name": "service/robot-state",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/thermal.js",
+        "name": "service/thermal",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/victim-found.js",
+        "name": "service/victim-found",
+        "exec_mode": "fork",
+        "watch": true
+    }
+]
+
+
