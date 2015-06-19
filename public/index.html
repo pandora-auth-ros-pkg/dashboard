@@ -7,6 +7,7 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" type="text/css" media="all"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/2.0.0/pnotify.all.min.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="./build/main.css" type="text/css" media="all" />
   </head>
   <body>
@@ -74,25 +75,8 @@
       <!-- /Header -->
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12 alert-bar">
-          <ul class="pull-right nav nav-pills">
-            <li><a><i class="fa fa-cog"></i></a></li>
-            <li class="dropdown alert-feed">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Alerts
-                <i class="fa fa-exclamation-triangle"></i>
-                <span class="badge">0</span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li class="no-alerts"><a ><strong>No alerts</strong></a></li>
-                <li>
-                  <button class="btn btn-default btn-sm clean-alerts"> Clear </button>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-user"></i></a></li>
-            <li><a title="Add Widget" data-toggle="modal" href="#addWidgetModal"><span class="fa fa-plus-sign"></span> Add Widget</a></li>
-          </ul>
-          <a href="#"><strong><i class="fa fa-dashboard"></i> Dashboard</strong></a>
+        <div class="col-sm-12">
+         <a href="#"><strong><i class="fa fa-dashboard"></i> Dashboard</strong></a>
           <hr>
         </div>
       </div>
@@ -120,6 +104,7 @@
 
   <!--Browserify bundle-->
   <script src="./build/bundle.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/2.0.0/pnotify.all.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
   <script src="./scripts/ui.js" type="text/javascript" charset="utf-8"></script>
 

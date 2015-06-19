@@ -109,13 +109,25 @@ var AgentView = Backbone.View.extend({
     this.renderPartial(
       this.validationPanelTemplate, '#validation-panel', 'validation panel');
 
-    // Show alert on the navbar
-    var context = this.victimNotificationTemplate(this.model.toJSON());
-    $('.alert-feed ul.dropdown-menu li.no-alerts').remove();
-    $('.alert-feed ul.dropdown-menu').append(context);
-
-    // Increase by one the number of notifications.
-    $('.alert-feed .badge').text(Number($('.alert-feed .badge').text()) + 1);
+    // Show stacked notification.
+    new PNotify({
+      title: 'Victim arrived',
+      text: "Go to agent's panel to validate it",
+      hide: false,
+      type: 'success',
+      confirm: {
+        confirm: true
+      },
+      buttons: {
+        closer: false
+      },
+      history: {
+        history: false
+      }
+    }).get().on('pnotify.confirm', function() {
+      console.log('Moving to the validation panel.');
+      window.location = '/#/agent';
+    });
 
     return this;
   }

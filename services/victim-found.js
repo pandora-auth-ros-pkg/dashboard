@@ -32,7 +32,7 @@ var validator = zmq.socket('pub');
 var validateVictimTopic = 'victim_goal';
 var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
 
-alertReceiver.subscribe('victim_goal');
+alertReceiver.subscribe(validateVictimTopic);
 
 alertReceiver.on('message', function(data) {
 
