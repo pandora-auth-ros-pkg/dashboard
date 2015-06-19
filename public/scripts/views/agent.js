@@ -36,7 +36,7 @@ var AgentView = Backbone.View.extend({
     console.log('View Agent initialized');
 
     this.model.subscribe();
-    Dispatcher.on('agent:change:state', this.udpateState, this);
+    Dispatcher.on('agent:change:state', this.updateState, this);
     Dispatcher.on('agent:change:target', this.updateTarget, this);
     Dispatcher.on('agent:change:mission', this.updateMission, this);
     Dispatcher.on('agent:victim:alert', this.showVictimAlert, this);
@@ -44,7 +44,9 @@ var AgentView = Backbone.View.extend({
 
   events: {
     'click #reject-victim': 'rejectVictim',
-    'click #accept-victim': 'acceptVictim'
+    'click #accept-victim': 'acceptVictim',
+    'click #start-agent': 'startAgent',
+    'click #stop-agent': 'stopAgent'
   },
 
   rejectVictim: function() {
@@ -61,19 +63,30 @@ var AgentView = Backbone.View.extend({
     this.$('#validation-panel').addClass('.hide').fadeOut(1000);
   },
 
+  startAgent: function() {
+    console.log('Sending start command to the robot agent.');
+    Socket.emit('web/agent/command', 'agent:start');
+  },
+
+  stopAgent: function() {
+    console.log('Sending stop command to the robot agent.');
+    Socket.emit('web/agent/command', 'agent:stop');
+  },
+
   updateMission: function() {
-      this.renderPartial(
-        this.missionPanelTemplate, '#mission-panel', 'mission panel');
+    this.renderPartial(
+      this.missionPanelTemplate, '#mission-panel', 'mission panel');
   },
 
   updateState: function() {
-      this.renderPartial(
-        this.statePanelTemplate, '#robot-state-panel', 'state panel');
+    console.log(this.model.get('state'));
+    this.renderPartial(
+      this.statePanelTemplate, '#robot-state-panel', 'state panel');
   },
 
   updateTarget: function() {
-      this.renderPartial(
-        this.targetPanelTemplate, '#target-panel', 'target panel');
+    this.renderPartial(
+      this.targetPanelTemplate, '#target-panel', 'target panel');
   },
 
   renderPartial: function(template, selector, debugMsg) {

@@ -78,14 +78,16 @@ IOServer.on('connection', function(socket) {
   });
 
   socket.on('service/robot/state', function(state) {
-    console.log(state);
     IOServer.emit('web/robot/state', state);
   });
 
   socket.on('service/victim/alert', function(alert) {
-    console.log(alert);
     IOServer.emit('web/victim/alert', alert);
   });
+
+  socket.on('service/agent/response', function(res) {
+    IOServer.emit('web/agent/response', res);
+  })
 
   /**
    * Events from the operator.
@@ -94,6 +96,11 @@ IOServer.on('connection', function(socket) {
   socket.on('web/victim/response', function(res) {
     IOServer.emit('service/victim/response', res);
   });
+
+  socket.on('web/agent/command', function(cmd) {
+    IOServer.emit('service/agent/command', cmd);
+  });
+
 });
 
 /**

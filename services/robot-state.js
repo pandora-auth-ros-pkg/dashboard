@@ -65,8 +65,6 @@ ws.on('message', function(chunk) {
 
   // If a transition has been made notify for the
   // current state.
-  if (data.msg.type === 0) {
-    console.log(data.msg);
-    socket.emit('service/robot/state', robotStates[data.msg.mode]);
-  }
+  console.log(data.msg);
+  socket.emit('service/robot/state', robotStates[data.msg.mode]);
 });

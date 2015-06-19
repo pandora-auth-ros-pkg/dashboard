@@ -11,7 +11,7 @@ env.getRosMasterURI = function() {
 };
 
 env.getRosMasterIP = function() {
-  return process.env.ROS_MASTER_URI.split('//')[1].split(':')[0];
+  return "192.168.0.106";
 };
 
 env.rosBridgePort = 9090;
