@@ -49,14 +49,14 @@ var AgentView = Backbone.View.extend({
 
   rejectVictim: function() {
     console.log('Victim rejected');
-    this.waitingForValidaiton = false;
+    this.waitingForValidation = false;
     Socket.emit('web/victim/response', false);
     this.$('#validation-panel').addClass('.hide').fadeOut(1000);
   },
 
   acceptVictim: function() {
     console.log('Victim accepted');
-    this.waitingForValidaiton = false;
+    this.waitingForValidation = false;
     Socket.emit('web/victim/response', true);
     this.$('#validation-panel').addClass('.hide').fadeOut(1000);
   },
@@ -91,7 +91,7 @@ var AgentView = Backbone.View.extend({
     this.renderPartial(this.targetPanelTemplate, '#target-panel', 'target panel');
     this.renderPartial(this.missionPanelTemplate, '#mission-panel', 'mission panel');
 
-    if (this.waitingForValidation) {
+    if (this.waitingForValidation === true) {
       this.renderPartial(
         this.validationPanelTemplate, '#validation-panel', 'validation panel');
     }
