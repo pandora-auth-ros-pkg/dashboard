@@ -33,9 +33,11 @@ var CameraView = Backbone.View.extend({
 
   updateParameters: function() {
     var topic = $('input#topic-input').val();
-    var quality= $('input#video-quality').val();
-    var height= $('input#video-height').val();
-    var width= $('input#video-width').val();
+    var quality = $('input#video-quality').val();
+    var height = $('input#video-height').val();
+    var width = $('input#video-width').val();
+    var host = $('input#stream-host').val();
+    var port = $('input#stream-port').val();
 
     if (topic) {
       this.model.set({'topic': topic});
@@ -48,6 +50,12 @@ var CameraView = Backbone.View.extend({
     }
     if (width) {
       this.model.set({'videoWidth': width});
+    }
+    if (host) {
+      this.model.set({'streamServer': host});
+    }
+    if (port) {
+      this.model.set({'streamPort': port});
     }
   },
 
