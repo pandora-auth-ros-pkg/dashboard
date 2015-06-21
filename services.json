@@ -42,8 +42,8 @@
         "watch": true
     },
     {
-        "script": "./services/victim-found.js",
-        "name": "service/victim-found",
+        "script": "./services/agent-server.js",
+        "name": "service/agent-server",
         "exec_mode": "fork",
         "watch": true
     }
