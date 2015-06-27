@@ -3,8 +3,9 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width'>
-    <title>Web Client</title>
+    <title>PANDORA Dashboard</title>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" type="text/css" media="all"/>-->
+    <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/2.0.0/pnotify.all.min.css" type="text/css" media="all"/>
@@ -18,41 +19,24 @@
         <!-- Left sidebar -->
         <div class="col-sm-3" id="slide-menu">
           <hr>
-          <a href="#"><strong><i class="fa fa-wrench"></i> Robot</strong></a>
+          <a class="section-header" href="#"><strong><i class="fa fa-wrench"></i> Robot</strong></a>
           <hr>
-          <ul class="nav nav-stacked">
-            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">Status <i class="fa fa-chevron-down"></i></a>
-              <ul class="nav nav-stacked collapse in" id="userMenu">
-                <li class="active menu-item"> <a href="#/overview"><i class="fa fa-home"></i> Overview</a></li>
-                <li class="menu-item"><a href="#/agent"><i class="fa fa-user-secret"></i> Agent</a></li>
-                <li class="menu-item"><a href="#/sensors"><i class="fa fa-gears"></i> Sensors </a></li>
-                <li class="menu-item"><a href="#/console"><i class="fa fa-code"></i> Console</a></li>
-                <li class="menu-item"><a href="#/camera"><i class="fa fa-video-camera"></i> Cameras</a></li>
-              </ul>
-            </li>
-            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2"> Reports <i class="fa fa-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse" id="menu2">
-                <li class="menu-item"><a href="#"><i class="fa fa-map-marker"></i> Geotiff</a> </li>
-                <li class="menu-item"><a href="#"><i class="fa fa-exclamation-triangle"></i> Alerts</a> </li>
-              </ul>
-            </li>
+          <ul class="nav nav-pills nav-stacked">
+            <li class="menu-item"><a href="#/overview"><i class="fa fa-home"></i> Overview</a></li>
+            <li class="menu-item"><a href="#/agent"><i class="fa fa-user-secret"></i> Agent</a></li>
+            <li class="menu-item"><a href="#/sensors"><i class="fa fa-gears"></i> Sensors </a></li>
+            <li class="menu-item"><a href="#/console"><i class="fa fa-code"></i> Console</a></li>
+            <li class="menu-item"><a href="#/camera"><i class="fa fa-video-camera"></i> Cameras</a></li>
           </ul>
           <hr>
-          <a href="#"><strong><i class="fa fa-link"></i> Settings</strong></a>
+          <a class="section-header" href="#"><strong><i class="fa fa-link"></i> Reports</strong></a>
           <hr>
           <ul class="nav nav-pills nav-stacked">
             <li class="nav-header"></li>
-            <li class="menu-item"><a href="#"><i class="fa fa-list"></i> Layouts &amp; Templates</a></li>
-            <li class="menu-item"><a href="#"><i class="fa fa-briefcase"></i> Toolbox</a></li>
-            <li class="menu-item"><a href="#"><i class="fa fa-link"></i> Widgets</a></li>
+            <li class="menu-item"><a href="#"><i class="fa fa-map-marker"></i> Geotiff</a></li>
+            <li class="menu-item"><a href="#"><i class="fa fa-list"></i> CSV Output</a></li>
           </ul>
           <hr>
-          <a href="#"><strong><i class="fa fa-bar-chart"></i> Statistics</strong></a>
-          <hr>
-          <ul class="nav nav-stacked">
-            <li class="menu-item"><a href="#"><i class="fa fa-list-alt"></i> Reports</a></li>
-            <li class="menu-item"><a href="#"><i class="fa fa-book"></i> Pages</a></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -76,7 +60,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
-         <a href="#"><strong><i class="fa fa-dashboard"></i> Dashboard</strong></a>
+         <a class="section-header" href="#"><strong><i class="fa fa-dashboard"></i> Dashboard</strong></a>
           <hr>
         </div>
       </div>
@@ -86,9 +70,8 @@
         </div>
       </div>
       <hr>
-      <a href="#"><strong><i class="fa fa-comment"></i> Alerts</strong></a>
+      <a class="section-header" href="#"><strong><i class="fa fa-comment"></i> Alerts</strong></a>
       <hr>
-      <footer class="text-center">Footer</footer>
     </div>
   </div>
 

@@ -18,3 +18,24 @@
         @include border-radius(10px);
     }
 }
+
+.menu-item {
+
+    a {
+        font-family: 'Merriweather Sans', sans-serif;
+        font-size: 1.1em;
+        color: rgb(20, 20, 20);
+    }
+
+    i {
+        font-size: 1.2em;
+        color: black;
+    }
+}
+
+.section-header {
+
+    font-size: 1.3em;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
