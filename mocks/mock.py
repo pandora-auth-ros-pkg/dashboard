@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 from time import sleep
 import random
@@ -41,7 +43,7 @@ def random_co2(delay=1):
     msg = Co2Msg()
     while not rospy.is_shutdown():
         msg.header = rospy.Header()
-        msg.co2_percentage = random.random() * 10
+        msg.co2_percentage = random.random()
         sleep(delay)
         pub.publish(msg)
 

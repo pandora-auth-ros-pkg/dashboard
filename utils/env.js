@@ -4,16 +4,15 @@
  * Configuration shared among the services.
  */
 
-var env = {};
+var env = {
+  SERVER_PORT: '3000',
 
-env.getRosMasterURI = function() {
-  return process.env.ROS_MASTER_URI;
+  ROS_MASTER_IP: 'localhost',
+  ROS_BRIDGE_PORT: '9090',
+
+  VICTIM_ALERT_PORT: '6666',
+  VICTIM_VALIDATION_PORT: '6667'
 };
 
-env.getRosMasterIP = function() {
-  return "192.168.0.106";
-};
-
-env.rosBridgePort = 9090;
 
 module.exports = env;

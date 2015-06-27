@@ -49,11 +49,11 @@ var Sonar = Backbone.Model.extend({
     console.log('Listening on topic ' + this.get('topic'));
 
     var _this = this;
-    ioClient.on(this.get('topic'), function(left, right) {
-      if (right === null) {
-        _this.set({'left_sensor': left.toFixed(2)});
+    ioClient.on(this.get('topic'), function(msg) {
+      if (msg.right === null) {
+        _this.set({'left_sensor': msg.left.toFixed(2)});
       } else {
-        _this.set({'right_sensor': right.toFixed(2)});
+        _this.set({'right_sensor': msg.right.toFixed(2)});
       }
     });
   },

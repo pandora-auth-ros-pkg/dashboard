@@ -9,7 +9,7 @@ var io = require('socket.io-client');
  * Env variables.
  */
 
-var masterIP = require('../utils/env').getRosMasterIP();
+var ROS_MASTER_IP = require('../utils/env').ROS_MASTER_IP;
 var SERVICE_NAME = 'victimAlert';
 var validateVictimTopic = 'victim_goal';
 var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
@@ -82,6 +82,6 @@ agentHandler.on('message', function(msg) {
   console.log('The answer is ' + msg);
 });
 
-alertReceiver.connect('tcp://' + masterIP + ':6666');
-validator.bindSync('tcp://127.0.0.1:7777');
+alertReceiver.connect('tcp://' + ROS_MASTER_IP + ':6666');
+validator.bindSync('tcp://127.0.0.1:6667');
 agentHandler.connect('tcp://192.168.0.106:5555');
