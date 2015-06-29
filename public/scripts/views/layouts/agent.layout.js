@@ -32,7 +32,7 @@ var AgentLayout = Backbone.View.extend({
    */
 
   views: {
-    'camera.camera': {
+    'agent': {
       view: new AgentView({
         model: new Agent({
           name: 'Agent'
