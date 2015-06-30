@@ -15,7 +15,7 @@ RESPONSE_PORT = "6667"
 SEND_PORT = "6666"
 
 
-class BridgeServer(object):
+class VictimValidator(object):
 
     def __init__(self, ros_topic, gui_ip):
 
@@ -88,5 +88,5 @@ if __name__ == '__main__':
     else:
         gui_ip = '192.168.0.120'
 
-    server = BridgeServer('/gui/validate_victim', gui_ip)
+    server = VictimValidator('/gui/validate_victim', gui_ip)
     server.start()

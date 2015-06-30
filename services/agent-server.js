@@ -53,7 +53,7 @@ alertReceiver.on('message', function(data) {
 });
 
 /**
- * Socket.io communications.
+ * Receive commands from the web client.
  */
 
 socket.on('service/victim/response', function(res) {
@@ -75,13 +75,14 @@ socket.on('service/agent/command', function(cmd) {
 });
 
 /**
- * Communication with the AgentHandlerServer.
+ * Receive response from the agent handler.
  */
 
 agentHandler.on('message', function(msg) {
-  console.log('The answer is ' + msg);
+  console.log('Server responded with: ' + msg);
 });
 
 alertReceiver.connect('tcp://' + ROS_MASTER_IP + ':6666');
+agentHandler.connect('tcp://' + ROS_MASTER_IP + ':5555');
+
 validator.bindSync('tcp://127.0.0.1:6667');
-agentHandler.connect('tcp://192.168.0.106:5555');
