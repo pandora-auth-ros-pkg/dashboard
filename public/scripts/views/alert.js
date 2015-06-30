@@ -8,7 +8,7 @@ var ioClient = require('../ros-events');
  * View template.
  */
 
-var alertTemplate = require('../templates/victim.alert.hbs');
+var qrAlertTemplate = require('../templates/alert.qr.hbs');
 
 /**
  * Alert Model
@@ -21,7 +21,7 @@ var AlertView = Backbone.View.extend({
 
   el: '#alert-feed',
 
-  template: alertTemplate,
+  qrTemplate: qrAlertTemplate,
 
   events: {
     'click .clean-alerts': 'cleanAlerts',
@@ -43,9 +43,29 @@ var AlertView = Backbone.View.extend({
 
     // Create a new alert model for this alert.
     var alert = new Alert(msg);
+    alert.set({"type": "QR"});
 
     // Append the alert into the list.
-    this.$el.append(this.template(alert.toJSON()));
+    this.$el.append(this.qrTemplate(alert.toJSON()));
+
+    // Show stacked notification.
+    new PNotify({
+      title: 'A QR arrived',
+      text: "More info on the alerts section",
+      hide: false,
+      type: 'success',
+      confirm: {
+        confirm: true
+      },
+      buttons: {
+        closer: false
+      },
+      history: {
+        history: false
+      }
+    }).get().on('pnotify.confirm', function() {
+      console.log('QR validated.');
+    });
   },
 
   cleanAlerts: function() {
@@ -54,7 +74,7 @@ var AlertView = Backbone.View.extend({
 
   render: function() {
 
-    this.$el.html(this.template());
+    this.$el.html(this.qrTemplate());
 
     return this;
   }

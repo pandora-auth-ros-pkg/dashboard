@@ -8,9 +8,7 @@ var Dispatcher = require('../dispatcher');
 var Alert = Backbone.Model.extend({
 
   defaults: {
-    name: 'Generic Alert',
-    info: {
-    }
+    name: 'Generic Alert'
   },
 
   /**

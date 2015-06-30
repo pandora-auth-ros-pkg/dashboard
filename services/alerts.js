@@ -12,11 +12,13 @@ var QRAlert = new Service({
   msgType: 'pandora_data_fusion_msgs/QrInfo',
   serverTopic: 'alert/qr'
 }, function(msg) {
+  var date = new Date(msg.timeFound.secs * 1000);
+
   return {
     id: msg.id,
     content: msg.content,
     probability: msg.probability.toFixed(2),
-    timeFound: msg.timeFound.secs,
+    timeFound: date.toString(),
     position: {
       frameID: msg.qrPose.header.frame_id,
       x: msg.qrPose.pose.position.x.toFixed(3),
