@@ -16,11 +16,11 @@ var Camera = Backbone.Model.extend({
 
   defaults: {
     name: 'Camera',
-    streamServer: 'localhost',
+    streamServer: '192.168.0.106',
     streamPort: 8080,
     videoWidth: 450,
     videoHeight: 340,
-    videoQuality: 50,
+    videoQuality: 20,
     topic: '/kinect/rgb/image_raw'
   },
 
