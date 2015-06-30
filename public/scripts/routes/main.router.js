@@ -13,6 +13,7 @@ var SensorsLayout =  require('../views/layouts/sensors.layout');
 var CamerasLayout = require('../views/layouts/cameras.layout');
 var AgentLayout = require('../views/layouts/agent.layout');
 var AlertsLayout = require('../views/layouts/alerts.layout');
+var GeotiffLayout = require('../views/layouts/geotiff.layout');
 
 
 var Router = Backbone.Router.extend({
@@ -22,6 +23,7 @@ var Router = Backbone.Router.extend({
     'overview': 'renderOverview',
     'camera': 'renderCameras',
     'agent': 'renderAgent',
+    'geotiff': 'renderGeotiff',
     '*path': 'renderOverview'
   },
 
@@ -31,6 +33,7 @@ var Router = Backbone.Router.extend({
     'cameras': new CamerasLayout(),
     'overview': new OverView(),
     'agent': new AgentLayout(),
+    'geotiff': new GeotiffLayout(),
     'alerts': new AlertsLayout()
     }
   }),
@@ -57,6 +60,11 @@ var Router = Backbone.Router.extend({
   renderCameras: function() {
     console.log('Rendering cameras.');
     this.manager.render('cameras');
+  },
+
+  renderGeotiff: function() {
+    console.log('Rendering geotiff.');
+    this.manager.render('geotiff');
   }
 });
 

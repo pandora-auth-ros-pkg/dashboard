@@ -32,25 +32,6 @@ var prefix = 'RRL_2015_PANDORA_';
 var extension = '.tiff';
 
 /**
- * Receive commands from the web client.
- */
-
-socket.on('service/geotiff/request', function(filename) {
-
-  fileName = filename;
-
-  // Create Service request.
-  var geotiffService = {
-    "op": "call_service",
-    "service": "/geotiff/saveMission",
-    "args": [{
-        data: fileName
-    }]
-  };
-
-});
-
-/**
  * Communicate with the geotiff service.
  */
 
@@ -58,7 +39,6 @@ var ws = new webSocket('ws://' + ROS_MASTER_IP + ':' + ROS_BRIDGE_PORT);
 
 ws.on('open', function() {
   console.log('Connected to the ROS bridge.');
-  ws.send(JSON.stringify(geotiffService));
 });
 
 ws.on('message', function(msg) {
@@ -82,3 +62,24 @@ ws.on('message', function(msg) {
     }
   });
 });
+
+/**
+ * Receive commands from the web client.
+ */
+
+socket.on('service/geotiff/request', function(filename) {
+
+  fileName = filename;
+
+  // Create Service request.
+  var geotiffService = {
+    "op": "call_service",
+    "service": "/geotiff/saveMission",
+    "args": [{
+      data: fileName
+    }]
+  };
+
+  ws.send(JSON.stringify(geotiffService));
+});
+

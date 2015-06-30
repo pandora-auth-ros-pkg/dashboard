@@ -114,6 +114,13 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('service/agent/command', cmd);
   });
 
+  socket.on('web/geotiff/request', function(req) {
+    IOServer.emit('service/geotiff/request', req);
+  });
+
+  socket.on('service/geotiff/response', function(req) {
+    IOServer.emit('web/geotiff/response', req);
+  });
 });
 
 /**
