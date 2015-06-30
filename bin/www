@@ -44,6 +44,11 @@ IOServer.on('connection', function(socket) {
    * Register services and pass data to the browser.
    */
 
+
+  /**
+   * Data from sensors.
+   */
+
   socket.on('service/sensors/battery', function(msg) {
     var psu = {
       name: msg.name[0],
@@ -77,6 +82,14 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('web/sensors/sonar', left_range, right_range);
   });
 
+  socket.on('service/agent/response', function(res) {
+    IOServer.emit('web/agent/response', res);
+  })
+
+  /**
+   * Alerts.
+   */
+
   socket.on('service/robot/state', function(state) {
     IOServer.emit('web/robot/state', state);
   });
@@ -85,9 +98,9 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('web/victim/alert', alert);
   });
 
-  socket.on('service/agent/response', function(res) {
-    IOServer.emit('web/agent/response', res);
-  })
+  socket.on('service/alert/qr', function(alert) {
+    IOServer.emit('web/alert/qr', alert);
+  });
 
   /**
    * Events from the operator.

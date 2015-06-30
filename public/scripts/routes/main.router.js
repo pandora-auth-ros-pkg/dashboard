@@ -12,6 +12,7 @@ var OverView = require('../views/overview');
 var SensorsLayout =  require('../views/layouts/sensors.layout');
 var CamerasLayout = require('../views/layouts/cameras.layout');
 var AgentLayout = require('../views/layouts/agent.layout');
+var AlertsLayout = require('../views/layouts/alerts.layout');
 
 
 var Router = Backbone.Router.extend({
@@ -29,7 +30,8 @@ var Router = Backbone.Router.extend({
     'sensors': new SensorsLayout(),
     'cameras': new CamerasLayout(),
     'overview': new OverView(),
-    'agent': new AgentLayout()
+    'agent': new AgentLayout(),
+    'alerts': new AlertsLayout()
     }
   }),
 
@@ -40,6 +42,7 @@ var Router = Backbone.Router.extend({
 
   renderOverview: function() {
     this.manager.render('overview');
+    this.manager.render('alerts');
   },
 
   renderAgent: function() {
