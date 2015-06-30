@@ -42,7 +42,12 @@ var Router = Backbone.Router.extend({
 
   renderOverview: function() {
     this.manager.render('overview');
-    this.manager.render('alerts');
+    if (!this.manager.isRendered('alerts')) {
+      console.log('Rendering alerts.');
+      this.manager.render('alerts');
+    } else {
+      console.log('Alerts layout is already rendered.');
+    }
   },
 
   renderAgent: function() {
