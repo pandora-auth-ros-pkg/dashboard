@@ -21,7 +21,7 @@ var Service = function(options, onMessage) {
   this.msgType = options.msgType;
   this.serverTopic = options.serverTopic;
   this.onMessage = onMessage;
-}
+};
 
 Service.prototype.start = function() {
 
@@ -52,6 +52,6 @@ Service.prototype.start = function() {
     var filteredData = _this.onMessage(data.msg);
     _this.socket.emit('service/' + _this.serverTopic, filteredData);
   });
-}
+};
 
 module.exports = Service;

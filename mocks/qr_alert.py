@@ -32,6 +32,6 @@ def publish_qr_alert(delay):
 if __name__ == '__main__':
 
     if len(sys.argv) > 1:
-        publish_qr_alert(sys.argv[1])
+        publish_qr_alert(float(sys.argv[1]))
     else:
         publish_qr_alert(7)

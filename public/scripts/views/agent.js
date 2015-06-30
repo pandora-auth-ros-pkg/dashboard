@@ -15,7 +15,6 @@ var stateTemplate = require('../templates/state.panel.hbs');
 var missionTemplate = require('../templates/mission.panel.hbs');
 var validationTempalte = require('../templates/validation-panel.hbs');
 
-var victimNotification = require('../templates/victim.alert.hbs');
 var victimDialog = require('../templates/victim.dialog.hbs');
 
 
@@ -27,7 +26,6 @@ var AgentView = Backbone.View.extend({
   missionPanelTemplate: missionTemplate,
   validationPanelTemplate: validationTempalte,
 
-  victimNotificationTemplate: victimNotification,
   victimDialogTemplate: victimDialog,
 
   waitingForValidation: false,
