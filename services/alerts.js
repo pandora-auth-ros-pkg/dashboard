@@ -15,13 +15,13 @@ var QRAlert = new Service({
   return {
     id: msg.id,
     content: msg.content,
-    probability: msg.probability,
+    probability: msg.probability.toFixed(2),
     timeFound: msg.timeFound.secs,
     position: {
       frameID: msg.qrPose.header.frame_id,
-      x: msg.qrPose.pose.position.x,
-      y: msg.qrPose.pose.position.y,
-      z: msg.qrPose.pose.position.z
+      x: msg.qrPose.pose.position.x.toFixed(3),
+      y: msg.qrPose.pose.position.y.toFixed(3),
+      z: msg.qrPose.pose.position.z.toFixed(3)
     },
     qrFrameId: msg.qrFrameId
   };
