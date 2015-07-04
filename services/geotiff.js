@@ -2,7 +2,6 @@
 
 'use strict';
 
-var sshClient = require('scp2');
 var io = require('socket.io-client');
 var webSocket = require('ws');
 
@@ -28,8 +27,6 @@ socket.on('connect', function() {
  */
 
 var fileName = 'TestMission';
-var prefix = 'RRL_2015_PANDORA_';
-var extension = '.tiff';
 
 /**
  * Communicate with the geotiff service.
@@ -45,22 +42,7 @@ ws.on('message', function(msg) {
   var response = JSON.parse(msg);
   console.log(msg);
   console.log('Received ' + response.result);
-
-  console.log('Copying geotiff from the remote host.');
-  sshClient.scp({
-    host: ROS_MASTER_IP,
-    username: 'pandora',
-    password: 'pandora',
-    path: '/home/pandora/' + prefix + fileName + extension
-  }, '/tmp/', function(err) {
-    if (err !== null) {
-      console.log(err);
-      socket.emit('service/geotiff/response', err);
-    } else {
-      console.log('Done.');
-      socket.emit('service/geotiff/response', 'Geotiff saved!');
-    }
-  });
+  socket.emit('service/geotiff/response', response.result);
 });
 
 /**
@@ -73,9 +55,9 @@ socket.on('service/geotiff/request', function(filename) {
 
   // Create Service request.
   var geotiffService = {
-    "op": "call_service",
-    "service": "/geotiff/saveMission",
-    "args": [{
+    'op': 'call_service',
+    'service': '/geotiff/saveMission',
+    'args': [{
       data: fileName
     }]
   };
