@@ -51,17 +51,24 @@ var GeotiffView = Backbone.View.extend({
   showResult: function(res) {
     console.log('Received response from the geotiff service.');
 
-    if (res === true) {
+    if (res.result === true) {
       this.showConfirmationAlert({
         type: 'success',
         heading: 'Service response',
         body: 'the geotiff map was saved successfully'
       });
     } else {
+      var body;
+      if (typeof res.values === 'string') {
+        body = res.values;
+      } else {
+        body = 'make sure the geotiff service is running';
+      }
+
       this.showConfirmationAlert({
         type: 'danger',
-        heading: 'Service error:',
-        body: 'make sure that the geotiff service is running'
+        heading: 'Service Error ',
+        body: body
       });
     }
   },

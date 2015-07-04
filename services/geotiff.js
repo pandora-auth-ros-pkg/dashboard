@@ -42,7 +42,7 @@ ws.on('message', function(msg) {
   var response = JSON.parse(msg);
   console.log(msg);
   console.log('Received ' + response.result);
-  socket.emit('service/geotiff/response', response.result);
+  socket.emit('service/geotiff/response', response);
 });
 
 /**
