@@ -8,6 +8,7 @@ var ioClient = require('../ros-events');
  */
 
 var qrAlertTemplate = require('../templates/alert.qr.hbs');
+var victimAlertTemplate = require('../templates/alert.victim.hbs');
 
 /**
  * Alert Model
@@ -21,6 +22,7 @@ var AlertView = Backbone.View.extend({
   el: '#alert-feed',
 
   qrTemplate: qrAlertTemplate,
+  victimTemplate: victimAlertTemplate,
 
   events: {
     'click .clean-alerts': 'cleanAlerts',
@@ -32,9 +34,11 @@ var AlertView = Backbone.View.extend({
     console.log('View alertfeed initialized');
     console.log(this);
     ioClient.on('web/alert/qr', this.appendQRAlert.bind(this));
+    ioClient.on('web/victim/alert', this.appendVictimAlert.bind(this));
   },
 
-  activeAlerts: {},
+  qrs: [],
+  victims: [],
 
   appendQRAlert: function(msg) {
 
@@ -43,6 +47,7 @@ var AlertView = Backbone.View.extend({
     // Create a new alert model for this alert.
     var alert = new Alert(msg);
     alert.set({'type': 'QR'});
+    this.qrs.push(alert);
 
     // Append the alert into the list.
     this.$el.append(this.qrTemplate(alert.toJSON()));
@@ -65,6 +70,16 @@ var AlertView = Backbone.View.extend({
     }).get().on('pnotify.confirm', function() {
       console.log('QR validated.');
     });
+  },
+
+  appendVictimAlert: function(msg) {
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'Victim'});
+    alert.set({'id': this.victims.length + 1});
+    this.victims.push(alert);
+
+    this.$el.append(this.victimTemplate(alert.toJSON()));
   },
 
   cleanAlerts: function() {

@@ -4,16 +4,16 @@
     <button type="button" class="close" data-dismiss="alert">x</button>
     <h4 class="list-group-item-heading">{{type}} - #{{id}}</h4>
     <strong>Alert Info &nbsp</strong>
-    <a data-toggle="collapse" data-target="#alert-info-{{id}}" aria-controls="target-orientation">
+    <a data-toggle="collapse" data-target="#alert-info-{{type}}-{{id}}" aria-controls="target-orientation">
         <i class="fa fa-chevron-right"></i>
     </a>
-    <ul class="list-group collapse" id="alert-info-{{id}}">
+    <ul class="list-group collapse" id="alert-info-{{type}}-{{id}}">
         <li class="list-group-item alert-item">
             <strong>Position: &nbsp </strong>
-            <a data-toggle="collapse" data-target="#target-position-{{id}}" aria-controls="target-position">
+            <a data-toggle="collapse" data-target="#target-position-{{type}}-{{id}}" aria-controls="target-position">
                 <i class="fa fa-chevron-right"></i>
             </a>
-            <ul class="list-group collapse" id="target-position-{{id}}">
+            <ul class="list-group collapse" id="target-position-{{type}}-{{id}}">
                 <li class="list-group-item alert-item">
                     x: &nbsp {{position.x}}
                 </li>

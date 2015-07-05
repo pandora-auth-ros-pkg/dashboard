@@ -1,0 +1,12 @@
+
+{{#if type}}
+<div class="alert alert-dismissible alert-item">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <h4 class="list-group-item-heading">{{type}} {{#if id}}- #{{id}}{{/if}}</h4>
+    <strong>Probability: {{probability}}, &nbsp Position: ({{x}}, {{y}}), </strong>
+    <strong>Sensors: </strong>
+    {{#each sensors}}
+    <span class="badge">{{this}}</span>
+    {{/each}}
+</div>
+{{/if}}
