@@ -46,7 +46,28 @@
         "name": "service/agent-server",
         "exec_mode": "fork",
         "watch": true
+    },
+    {
+        "script": "./services/geotiff.js",
+        "name": "service/geotiff",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/csv.js",
+        "name": "service/csv",
+        "exec_mode": "fork",
+        "watch": true
+    },
+    {
+        "script": "./services/alerts.js",
+        "name": "service/alerts",
+        "exec_mode": "fork",
+        "watch": true
     }
+
+
+
 ]
 
 

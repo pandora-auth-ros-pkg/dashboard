@@ -10,6 +10,7 @@ var io = require('socket.io-client');
  */
 
 var ROS_MASTER_IP = require('../utils/env').ROS_MASTER_IP;
+var LOCAL_IP = require('../utils/env').LOCAL_IP;
 var SERVICE_NAME = 'victimAlert';
 var validateVictimTopic = 'victim_goal';
 var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
@@ -85,4 +86,4 @@ agentHandler.on('message', function(msg) {
 alertReceiver.connect('tcp://' + ROS_MASTER_IP + ':6666');
 agentHandler.connect('tcp://' + ROS_MASTER_IP + ':5555');
 
-validator.bindSync('tcp://127.0.0.1:6667');
+validator.bindSync('tcp://' + LOCAL_IP + ':6667');
