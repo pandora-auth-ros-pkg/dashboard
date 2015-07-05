@@ -1,6 +1,5 @@
 'use strict';
 
-var jquery = require('jquery');
 var Backbone = require('backbone');
 var Dispatcher = require('../dispatcher');
 
@@ -9,12 +8,6 @@ var Dispatcher = require('../dispatcher');
  */
 
 var simpleSensorTemplate = require('../templates/simple.sensor.hbs');
-
-/**
- * Model of the view.
- */
-
-var SimpleSensor = require('../models/simple.sensor');
 
 
 var SimpleSensorView = Backbone.View.extend({

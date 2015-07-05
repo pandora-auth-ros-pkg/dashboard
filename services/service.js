@@ -46,7 +46,7 @@ Service.prototype.start = function() {
   });
 
   this.ws.on('message', function(data) {
-    var data = JSON.parse(data.toString());
+    data = JSON.parse(data.toString());
     console.log(data.msg);
 
     var filteredData = _this.onMessage(data.msg);

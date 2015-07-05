@@ -1,6 +1,5 @@
 'use strict';
 
-var jquery = require('jquery');
 var Backbone = require('backbone');
 var Dispatcher = require('../dispatcher');
 
@@ -10,12 +9,6 @@ var Dispatcher = require('../dispatcher');
 
 var batteryNormal = require('../templates/battery.normal.hbs');
 var batteryDanger = require('../templates/battery.danger.hbs');
-
-/**
- * Model of the view.
- */
-
-var Battery = require('../models/battery');
 
 
 var BatteryView = Backbone.View.extend({

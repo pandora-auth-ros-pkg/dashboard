@@ -13,7 +13,6 @@ var _ = require('underscore');
  */
 
 var AlertView = require('../alert');
-var Alert = require('../../models/alert');
 
 /**
  * Templates.

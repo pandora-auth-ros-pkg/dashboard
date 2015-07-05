@@ -2,7 +2,6 @@
 
 var Backbone = require('backbone');
 var ioClient = require('../ros-events.js');
-var Dispatcher = require('../dispatcher');
 
 
 var Alert = Backbone.Model.extend({
@@ -16,7 +15,6 @@ var Alert = Backbone.Model.extend({
    */
 
   initialize: function() {
-    var _this = this;
   },
 
   /**

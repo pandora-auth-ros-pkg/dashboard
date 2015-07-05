@@ -1,6 +1,5 @@
 'use strict';
 
-var jquery = require('jquery');
 var Backbone = require('backbone');
 var Dispatcher = require('../dispatcher');
 
@@ -9,12 +8,6 @@ var Dispatcher = require('../dispatcher');
  */
 
 var temperaturesTemplate = require('../templates/temperature.hbs');
-
-/**
- * Model of the view.
- */
-
-var temperature = require('../models/temperature');
 
 
 var TemperatureView = Backbone.View.extend({

@@ -1,7 +1,6 @@
 'use strict';
 
 var Backbone = require('backbone');
-var ioClient = require('../ros-events.js');
 var Dispatcher = require('../dispatcher');
 
 /**

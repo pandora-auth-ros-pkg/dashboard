@@ -1,7 +1,6 @@
 'use strict';
 
 var Backbone = require('backbone');
-var Dispatcher = require('../dispatcher');
 var ioClient = require('../ros-events');
 
 /**
@@ -43,7 +42,7 @@ var AlertView = Backbone.View.extend({
 
     // Create a new alert model for this alert.
     var alert = new Alert(msg);
-    alert.set({"type": "QR"});
+    alert.set({'type': 'QR'});
 
     // Append the alert into the list.
     this.$el.append(this.qrTemplate(alert.toJSON()));
@@ -51,7 +50,7 @@ var AlertView = Backbone.View.extend({
     // Show stacked notification.
     new PNotify({
       title: 'A QR arrived',
-      text: "More info on the alerts section",
+      text: 'More info on the alerts section',
       hide: false,
       type: 'success',
       confirm: {

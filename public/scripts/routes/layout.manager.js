@@ -24,11 +24,11 @@ var LayoutManager = (function () {
 
   LayoutManager.prototype.isRendered = function isRendered(layout) {
     return this.renderedLayouts.indexOf(layout) > -1;
-  },
+  };
 
   LayoutManager.prototype.render = function render(layout) {
     var _this = this;
-    _.each(this.layouts, function(layoutObject, layoutName, list) {
+    _.each(this.layouts, function(layoutObject, layoutName) {
       if (layoutName === layout) {
         _this.renderedLayouts.push(layoutName);
         layoutObject.render();
