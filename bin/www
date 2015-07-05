@@ -84,7 +84,7 @@ IOServer.on('connection', function(socket) {
 
   socket.on('service/agent/response', function(res) {
     IOServer.emit('web/agent/response', res);
-  })
+  });
 
   /**
    * Alerts.
@@ -118,8 +118,17 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('service/geotiff/request', req);
   });
 
-  socket.on('service/geotiff/response', function(req) {
-    IOServer.emit('web/geotiff/response', req);
+  socket.on('service/geotiff/response', function(res) {
+    IOServer.emit('web/geotiff/response', res);
+  });
+
+  socket.on('web/csv/request', function(req) {
+    console.log(req);
+    IOServer.emit('service/csv/request', req);
+  });
+
+  socket.on('service/csv/response', function(res) {
+    IOServer.emit('web/csv/response', res);
   });
 });
 

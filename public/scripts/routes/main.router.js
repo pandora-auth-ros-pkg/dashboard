@@ -14,6 +14,7 @@ var CamerasLayout = require('../views/layouts/cameras.layout');
 var AgentLayout = require('../views/layouts/agent.layout');
 var AlertsLayout = require('../views/layouts/alerts.layout');
 var GeotiffLayout = require('../views/layouts/geotiff.layout');
+var CSVLayout = require('../views/layouts/csv.layout');
 
 
 var Router = Backbone.Router.extend({
@@ -24,17 +25,19 @@ var Router = Backbone.Router.extend({
     'camera': 'renderCameras',
     'agent': 'renderAgent',
     'geotiff': 'renderGeotiff',
+    'csv': 'renderCSV',
     '*path': 'renderOverview'
   },
 
   manager: new LayoutManager({
     layouts: {
-    'sensors': new SensorsLayout(),
-    'cameras': new CamerasLayout(),
-    'overview': new OverView(),
-    'agent': new AgentLayout(),
-    'geotiff': new GeotiffLayout(),
-    'alerts': new AlertsLayout()
+      'sensors': new SensorsLayout(),
+      'cameras': new CamerasLayout(),
+      'overview': new OverView(),
+      'agent': new AgentLayout(),
+      'geotiff': new GeotiffLayout(),
+      'csv': new CSVLayout(),
+      'alerts': new AlertsLayout()
     }
   }),
 
@@ -65,6 +68,11 @@ var Router = Backbone.Router.extend({
   renderGeotiff: function() {
     console.log('Rendering geotiff.');
     this.manager.render('geotiff');
+  },
+
+  renderCSV: function() {
+    console.log('Rendering csv.');
+    this.manager.render('csv');
   }
 });
 
