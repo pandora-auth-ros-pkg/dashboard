@@ -10,11 +10,7 @@ you want to monitor.
 
 #### Configuration
 
-Just export the robot's ip to the `ROS_MASTER_URI`
-
-```bash
-export ROS_MASTER_URI=http://192.168.1.100:11311
-```
+Set the robot's ip on `utils/env.js`.
 
 On the robot run the [rosbridge](http://wiki.ros.org/rosbridge_suite) and the [web_video_server](https://github.com/RobotWebTools/web_video_server) for the image
 streaming.
@@ -39,15 +35,22 @@ gulp build
 Start the express server with
 ```
 npm start
-````
+```
 
 and then start the services with [pm2](https://github.com/Unitech/PM2).
 
 ```
 pm2 start services.json
-````
+```
 
-Connect from your browser (desktop, mobile) to port `3000`.
+On the robot run the remote services found on `services/remotes`.
+
+```
+python victim-validator.py server_ip
+node agent-controller.js
+```
+
+Connect from your browser to `server_ip:3000`.
 
 #### LICENSE
 
