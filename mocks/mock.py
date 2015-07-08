@@ -9,6 +9,7 @@ from rospy import Publisher, init_node
 
 from sensor_msgs.msg import Range
 
+from pandora_data_fusion_msgs.msg import VictimProbabilities
 from pandora_sensor_msgs.msg import BatteryMsg, Co2Msg, Temperature
 from pandora_sensor_msgs.msg import ThermalMeanMsg, ImuRPY
 
@@ -85,6 +86,21 @@ def random_thermal(delay=1):
         pub.publish(msg)
 
 
+def random_signs_of_life(delay=1):
+    print('Starting random signs of life.')
+    pub = Publisher('/data_fusion/signs_of_life', VictimProbabilities)
+    msg = VictimProbabilities()
+    while not rospy.is_shutdown():
+        msg.thermal = random.random()
+        msg.co2 = random.random()
+        msg.sound = random.random()
+        msg.motion = random.random()
+        msg.visualVictim = random.random()
+        msg.hazmat = random.random()
+        sleep(delay)
+        pub.publish(msg)
+
+
 if __name__ == '__main__':
     init_node('mock_node', anonymous=True)
 
@@ -104,3 +120,5 @@ if __name__ == '__main__':
         random_sonar(delay)
     elif selection == 'imu':
         random_imu(delay)
+    elif selection == 'sol':
+        random_signs_of_life(delay)

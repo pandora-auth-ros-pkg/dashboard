@@ -1,7 +1,28 @@
 <div class="row">
     <div id="robot-state-panel"> </div>
     <div id="target-panel"> </div>
-    <div id="mission-panel"> </div>
+    <div id="signs-of-life-panel">
+        <div class="col-md-4">
+            <div class="panel panel-gray">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tag fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                    <div class="huge"> Signs of Life  </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <strong>Probabilities</strong>
+            <a data-toggle="collapse" data-target="#signs-of-life-probabilities"
+                aria-controls="target-orientation"> <i class="fa fa-chevron-right"></i>
+            </a>
+
+            <div class="collapse" id="signs-of-life-probabilities"> </div>
+        </div>
+    </div>
 </div>
 
 <div class="row" id="validation-panel"> </div>

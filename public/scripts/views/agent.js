@@ -12,7 +12,7 @@ var agentTemplate = require('../templates/agent.hbs');
 
 var targetTemplate = require('../templates/target.panel.hbs');
 var stateTemplate = require('../templates/state.panel.hbs');
-var missionTemplate = require('../templates/mission.panel.hbs');
+var signsOfLifeTemplate = require('../templates/signs_of_life.panel.hbs');
 var validationTempalte = require('../templates/validation-panel.hbs');
 
 var victimDialog = require('../templates/victim.dialog.hbs');
@@ -23,7 +23,7 @@ var AgentView = Backbone.View.extend({
   template: agentTemplate,
   targetPanelTemplate: targetTemplate,
   statePanelTemplate: stateTemplate,
-  missionPanelTemplate: missionTemplate,
+  signsOfLifeTemplate: signsOfLifeTemplate,
   validationPanelTemplate: validationTempalte,
 
   victimDialogTemplate: victimDialog,
@@ -36,8 +36,8 @@ var AgentView = Backbone.View.extend({
     this.model.subscribe();
     Dispatcher.on('agent:change:state', this.updateState, this);
     Dispatcher.on('agent:change:target', this.updateTarget, this);
-    Dispatcher.on('agent:change:mission', this.updateMission, this);
     Dispatcher.on('agent:victim:alert', this.showVictimAlert, this);
+    Socket.on('web/signsOfLife', this.updateSignsOfLife.bind(this));
   },
 
   events: {
@@ -71,9 +71,45 @@ var AgentView = Backbone.View.extend({
     Socket.emit('web/agent/command', 'agent:stop');
   },
 
-  updateMission: function() {
+  updateSignsOfLife: function(msg) {
+    var signsOfLife = {
+      co2: {
+        name: "CO2",
+        value: msg.co2.toFixed(2),
+        status: this.getSensorStatus(msg.co2)
+      },
+      sound: {
+        name: "Sound",
+        value: msg.sound.toFixed(2),
+        status: this.getSensorStatus(msg.sound)
+      },
+      hazmat: {
+        name: "Hazmat",
+        value: msg.hazmat.toFixed(2),
+        status: this.getSensorStatus(msg.hazmat)
+      },
+      motion: {
+        name: "Motion",
+        value: msg.motion.toFixed(2),
+        status: this.getSensorStatus(msg.motion)
+      },
+      visual: {
+        name: "Visual",
+        value: msg.visualVictim.toFixed(2),
+        status: this.getSensorStatus(msg.visualVictim)
+      },
+      thermal: {
+        name: "Thermal",
+        value: msg.thermal.toFixed(2),
+        status: this.getSensorStatus(msg.thermal)
+      }
+    };
+    msg = {
+      signsOfLife: signsOfLife
+    };
     this.renderPartial(
-      this.missionPanelTemplate, '#mission-panel', 'mission panel');
+      this.signsOfLifeTemplate,
+      '#signs-of-life-probabilities', 'signs-of-life panel', msg);
   },
 
   updateState: function() {
@@ -87,10 +123,22 @@ var AgentView = Backbone.View.extend({
       this.targetPanelTemplate, '#target-panel', 'target panel');
   },
 
-  renderPartial: function(template, selector, debugMsg) {
+  getSensorStatus: function(value) {
+    if (value > 60) {
+      return "danger";
+    } else {
+      return "info";
+    }
+  },
+
+  renderPartial: function(template, selector, debugMsg, model) {
     if (debugMsg !== undefined) console.log('Rendering ' + debugMsg);
 
-    var context = template(this.model.toJSON());
+    if (model !== undefined) {
+      var context = template(model);
+    } else {
+      var context = template(this.model.toJSON());
+    }
     this.$(selector).html(context);
   },
 
@@ -100,7 +148,7 @@ var AgentView = Backbone.View.extend({
 
     this.renderPartial(this.statePanelTemplate, '#robot-state-panel', 'state panel');
     this.renderPartial(this.targetPanelTemplate, '#target-panel', 'target panel');
-    this.renderPartial(this.missionPanelTemplate, '#mission-panel', 'mission panel');
+    this.renderPartial(this.signsOfLifeTemplate, '#signs-of-life-probabilities', 'signs-of-life panel');
 
     if (this.waitingForValidation === true) {
       this.renderPartial(

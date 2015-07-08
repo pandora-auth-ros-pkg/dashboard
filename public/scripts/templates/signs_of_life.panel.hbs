@@ -1,0 +1,6 @@
+{{#each signsOfLife}}
+<h5>{{this.name}} - {{this.value}} %</h5>
+<div class="progress progress-striped active">
+    <div class="progress-bar progress-bar-{{this.status}}" style="width: {{this.value}}%"> </div>
+</div>
+{{/each}}

@@ -86,6 +86,18 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('web/agent/response', res);
   });
 
+  socket.on('service/signsOfLife', function(msg) {
+    msg = {
+      co2: msg.co2 * 100,
+      thermal: msg.thermal * 100,
+      sound: msg.sound * 100,
+      motion: msg.motion * 100,
+      visualVictim: msg.visualVictim * 100,
+      hazmat: msg.hazmat * 100
+    };
+    IOServer.emit('web/signsOfLife', msg);
+  });
+
   /**
    * Alerts.
    */
