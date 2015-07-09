@@ -8,14 +8,17 @@
             </h4>
         </div>
         <div class="panel-body">
-            <!--FIXME Change the hardcoded ip.-->
             <img src="http://{{streamServer}}:{{streamPort}}/stream?topic={{topic}}&quality={{videoQuality}}&width={{videoWidth}}&height={{videoHeight}}"
                  style="display: block; margin: auto; width: 100%; height: 70vh"></img>
         </div>
         <div class="well">
             <div class="form-group col-md-12">
                 <label class="control-label" for="inputLarge"><strong>ROS topic</strong></label>
-                <input class="form-control input-md" id="topic-input" type="text" placeholder="{{topic}}">
+                <select class="form-control" id="ros-topic-selection">
+                    {{#each rosTopics}}
+                    <option value="{{this.topic}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
             </div>
             <div class="form-group col-md-4">
                 <label class="control-label" for="inputLarge"><strong>Width (pixels)</strong></label>

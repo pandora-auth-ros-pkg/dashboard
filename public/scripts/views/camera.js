@@ -28,11 +28,30 @@ var CameraView = Backbone.View.extend({
 
   initialize: function() {
     console.log('View camera initialized');
+    var rosImageTopics = [
+      {
+        topic: '/kinect/rgb/image_raw',
+        name: 'Xtion'
+      },
+      {
+        topic: '/right_camera/image',
+        name: 'Right camera'
+      },
+      {
+        topic: '/left_camera/image',
+        name: 'Left camera'
+      },
+      {
+        topic: '/thermal/image',
+        name: 'Thermal camera'
+      }
+    ];
+    this.model.set({rosTopics: rosImageTopics});
     Dispatcher.on(this.model.get('dispatcherTopic'), this.render, this);
   },
 
   updateParameters: function() {
-    var topic = $('input#topic-input').val();
+    var topic = $('#ros-topic-selection').val();
     var quality = $('input#video-quality').val();
     var height = $('input#video-height').val();
     var width = $('input#video-width').val();
