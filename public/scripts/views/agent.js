@@ -163,6 +163,7 @@ var AgentView = Backbone.View.extend({
     this.waitingForValidation = true;
 
     this.render();
+    this.model.set({validationImageTopic: '/kinect/rgb/image_raw'});
 
     // Show the modal.
     this.renderPartial(
