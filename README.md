@@ -30,6 +30,14 @@ npm install -g gulp
 gulp build
 ```
 
+and finally install [pm2](https://github.com/Unitech/PM2).
+
+
+```
+npm install -g pm2
+```
+
+
 #### Run the server
 
 Start the express server with
@@ -37,17 +45,23 @@ Start the express server with
 npm start
 ```
 
-and then start the services with [pm2](https://github.com/Unitech/PM2).
+or
+
+```
+pm2 start bin/www
+```
+
+and then start the services
 
 ```
 pm2 start services.json
 ```
 
-On the robot run the remote services found on `services/remotes`.
+On the robot run the remote services found on `services/remotes`, but first
+fill in the correct server's ip on remotes.json.
 
 ```
-python victim-validator.py server_ip
-node agent-controller.js
+pm2 start remotes.json
 ```
 
 Connect from your browser to `server_ip:3000`.
