@@ -32,7 +32,17 @@ var AgentView = Backbone.View.extend({
 
   initialize: function() {
     console.log('View Agent initialized');
-
+    var strategies = [
+      {
+        name: "Normal",
+        value: "normal"
+      },
+      {
+        name: "Exploration mapping",
+        value: "mapping"
+      }
+    ];
+    this.model.set({strategies: strategies});
     this.model.subscribe();
     Dispatcher.on('agent:change:state', this.updateState, this);
     Dispatcher.on('agent:change:target', this.updateTarget, this);
@@ -62,13 +72,14 @@ var AgentView = Backbone.View.extend({
   },
 
   startAgent: function() {
-    console.log('Sending start command to the robot agent.');
-    Socket.emit('web/agent/command', 'agent:start');
+    var strategy = $('#strategy-selection').val();
+    console.log('Sending ' + strategy + ' command to the robot agent.');
+    Socket.emit('web/agent/command', strategy);
   },
 
   stopAgent: function() {
     console.log('Sending stop command to the robot agent.');
-    Socket.emit('web/agent/command', 'agent:stop');
+    Socket.emit('web/agent/command', 'stop');
   },
 
   updateSignsOfLife: function(msg) {

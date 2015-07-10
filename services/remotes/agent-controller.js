@@ -49,8 +49,13 @@ var killChild = function(pid, signal, callback) {
 
 responder.on('message', function(request) {
   console.log('Received request: ' + request);
-  if (request == 'agent:start') {
-    child = spawn('roslaunch', ['pandora_fsm', 'agent_standalone.launch']);
+  if (request != 'stop') {
+    if (child !== undefined) {
+      console.log('Killing all running nodes.');
+      killChild(child.pid, 'SIGKILL');
+    }
+    child = spawn('roslaunch',
+            ['pandora_fsm', 'agent_standalone.launch', 'strategy:=' + request]);
     console.log('Waking up the agent.');
 
     child.stdout.on('data', function(data) {
@@ -71,7 +76,7 @@ responder.on('message', function(request) {
 
     console.log('Process started with PID ' + child.pid);
     responder.send(child.pid);
-  } else if (request == 'agent:stop') {
+  } else {
     if (child !== undefined) {
       console.log('Trying to kill the agent.');
       killChild(child.pid, 'SIGKILL', function() {
@@ -81,8 +86,6 @@ responder.on('message', function(request) {
     } else {
       responder.send(false);
     }
-  } else {
-    responder.send(false);
   }
 });
 

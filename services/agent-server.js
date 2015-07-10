@@ -67,10 +67,10 @@ socket.on('service/victim/response', function(res) {
 });
 
 socket.on('service/agent/command', function(cmd) {
-  if (cmd === 'agent:start') {
-    console.log('Starting the agent.');
-  } else if (cmd === 'agent:stop') {
+  if (cmd === 'stop') {
     console.log('Stopping the agent.');
+  } else {
+    console.log('Startign agent with strategy: ' + cmd);
   }
   agentHandler.send(cmd);
 });

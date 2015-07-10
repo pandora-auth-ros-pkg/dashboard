@@ -35,16 +35,14 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-9">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label" for="focusedInput">Strategy</label>
-                            <input class="form-control" id="focusedInput" type="select" placeholder="Normal">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label" for="focusedInput">Log level</label>
-                            <input class="form-control" id="focusedInput" type="text" placeholder="Logerr">
+                            <label class="control-label" for="select">Strategy</label>
+                            <select id="strategy-selection" class="form-control">
+                                {{#each strategies}}
+                                <option value="{{this.value}}">{{this.name}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                     </div>
                 </div>
