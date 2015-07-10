@@ -70,7 +70,7 @@ socket.on('service/agent/command', function(cmd) {
   if (cmd === 'stop') {
     console.log('Stopping the agent.');
   } else {
-    console.log('Startign agent with strategy: ' + cmd);
+    console.log('Starting agent with strategy: ' + cmd);
   }
   agentHandler.send(cmd);
 });
@@ -80,7 +80,17 @@ socket.on('service/agent/command', function(cmd) {
  */
 
 agentHandler.on('message', function(msg) {
-  console.log('Server responded with: ' + msg);
+  msg = msg.toString();
+  if (msg === 'true') {
+    console.log('Agent terminated successfully');
+    socket.emit('service/agent/status/success');
+  } else if (msg === 'false') {
+    console.log('Agent didnt exit gracefully');
+    socket.emit('service/agent/status/error');
+  } else {
+    console.log('Agent started with PID: ' + msg);
+    socket.emit('service/agent/status/pid', msg);
+  }
 });
 
 alertReceiver.connect('tcp://' + ROS_MASTER_IP + ':6666');

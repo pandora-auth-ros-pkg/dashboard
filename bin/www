@@ -114,6 +114,18 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('web/alert/qr', alert);
   });
 
+  socket.on('service/agent/status/success', function() {
+    IOServer.emit('web/agent/status/success');
+  });
+
+  socket.on('service/agent/status/error', function() {
+    IOServer.emit('web/agent/status/error');
+  });
+
+  socket.on('service/agent/status/pid', function(pid) {
+    IOServer.emit('web/agent/status/pid', pid);
+  });
+
   /**
    * Events from the operator.
    */

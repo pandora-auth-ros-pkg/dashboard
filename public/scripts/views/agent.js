@@ -34,12 +34,12 @@ var AgentView = Backbone.View.extend({
     console.log('View Agent initialized');
     var strategies = [
       {
-        name: "Normal",
-        value: "normal"
+        name: 'Normal',
+        value: 'normal'
       },
       {
-        name: "Exploration mapping",
-        value: "mapping"
+        name: 'Exploration mapping',
+        value: 'mapping'
       }
     ];
     this.model.set({strategies: strategies});
@@ -47,7 +47,11 @@ var AgentView = Backbone.View.extend({
     Dispatcher.on('agent:change:state', this.updateState, this);
     Dispatcher.on('agent:change:target', this.updateTarget, this);
     Dispatcher.on('agent:victim:alert', this.showVictimAlert, this);
+
     Socket.on('web/signsOfLife', this.updateSignsOfLife.bind(this));
+    Socket.on('web/agent/status/success', this.showAgentSuccessAlert.bind(this));
+    Socket.on('web/agent/status/error', this.showAgentErrorAlert.bind(this));
+    Socket.on('web/agent/status/pid', this.showAgentPIDAlert.bind(this));
   },
 
   events: {
@@ -85,32 +89,32 @@ var AgentView = Backbone.View.extend({
   updateSignsOfLife: function(msg) {
     var signsOfLife = {
       co2: {
-        name: "CO2",
+        name: 'CO2',
         value: msg.co2.toFixed(2),
         status: this.getSensorStatus(msg.co2)
       },
       sound: {
-        name: "Sound",
+        name: 'Sound',
         value: msg.sound.toFixed(2),
         status: this.getSensorStatus(msg.sound)
       },
       hazmat: {
-        name: "Hazmat",
+        name: 'Hazmat',
         value: msg.hazmat.toFixed(2),
         status: this.getSensorStatus(msg.hazmat)
       },
       motion: {
-        name: "Motion",
+        name: 'Motion',
         value: msg.motion.toFixed(2),
         status: this.getSensorStatus(msg.motion)
       },
       visual: {
-        name: "Visual",
+        name: 'Visual',
         value: msg.visualVictim.toFixed(2),
         status: this.getSensorStatus(msg.visualVictim)
       },
       thermal: {
-        name: "Thermal",
+        name: 'Thermal',
         value: msg.thermal.toFixed(2),
         status: this.getSensorStatus(msg.thermal)
       }
@@ -136,19 +140,20 @@ var AgentView = Backbone.View.extend({
 
   getSensorStatus: function(value) {
     if (value > 60) {
-      return "danger";
+      return 'danger';
     } else {
-      return "info";
+      return 'info';
     }
   },
 
   renderPartial: function(template, selector, debugMsg, model) {
+    var context;
     if (debugMsg !== undefined) console.log('Rendering ' + debugMsg);
 
     if (model !== undefined) {
-      var context = template(model);
+      context = template(model);
     } else {
-      var context = template(this.model.toJSON());
+      context = template(this.model.toJSON());
     }
     this.$(selector).html(context);
   },
@@ -201,6 +206,36 @@ var AgentView = Backbone.View.extend({
     });
 
     return this;
+  },
+
+  showAgentSuccessAlert: function() {
+    console.log('Agent stopped');
+
+    new PNotify({
+      title: 'Agent terminated successfully',
+      text: '',
+      type: 'success'
+    });
+  },
+
+  showAgentErrorAlert: function() {
+    console.log('Agent error.');
+
+    new PNotify({
+      title: 'Agent Error',
+      text: 'The agent didnt exit gracefully.',
+      type: 'error'
+    });
+  },
+
+  showAgentPIDAlert: function(pid) {
+    console.log('Agent started with pid: ' + pid);
+
+    new PNotify({
+      title: 'Agent started.',
+      text: 'PID: ' + pid,
+      type: 'info'
+    });
   }
 
 });
