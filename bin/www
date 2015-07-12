@@ -154,6 +154,27 @@ IOServer.on('connection', function(socket) {
   socket.on('service/csv/response', function(res) {
     IOServer.emit('web/csv/response', res);
   });
+
+  socket.on('web/rosapi/request', function(req) {
+    console.log(req);
+    IOServer.emit('service/rosapi/request', req);
+  });
+
+  socket.on('service/rosapi/services', function(msg) {
+    console.log(msg);
+    IOServer.emit('web/rosapi/services', msg.services);
+  });
+
+  socket.on('service/rosapi/topics', function(msg) {
+    console.log(msg);
+    IOServer.emit('web/rosapi/topics', msg.topics);
+  });
+
+  socket.on('service/rosapi/nodes', function(msg) {
+    console.log(msg);
+    IOServer.emit('web/rosapi/nodes', msg.nodes);
+  });
+
 });
 
 /**
