@@ -1,19 +1,13 @@
 [
     {
-        "script": "./services/sonar.js",
-        "name": "sonar",
+        "script": "./bin/www",
+        "name": "server",
         "exec_mode": "fork",
         "watch": true
     },
     {
         "script": "./services/co2.js",
         "name": "co2",
-        "exec_mode": "fork",
-        "watch": true
-    },
-    {
-        "script": "./services/imu.js",
-        "name": "imu",
         "exec_mode": "fork",
         "watch": true
     },

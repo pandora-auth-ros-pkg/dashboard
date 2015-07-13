@@ -22,7 +22,7 @@ var getLocalIP = function() {
 var env = {
   SERVER_PORT: '3000',
 
-  ROS_MASTER_IP: 'localhost',
+  ROS_MASTER_IP: '192.168.0.106',
   ROS_BRIDGE_PORT: '9090',
 
   VICTIM_ALERT_PORT: '6666',
