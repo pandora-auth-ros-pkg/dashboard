@@ -70,7 +70,14 @@
         "name": "signsOfLife",
         "exec_mode": "fork",
         "watch": true
+    },
+    {
+        "script": "./services/rosapi.js",
+        "name": "rosapi",
+        "exec_mode": "fork",
+        "watch": true
     }
+
 ]
 
 
