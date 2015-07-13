@@ -13,6 +13,7 @@ var Socket = require('../ros-events.js');
 
 var overviewTemplate = require('../templates/overview.hbs');
 var tableItem = require('../templates/table-item.hbs');
+var modalInfo = require('../templates/modal-topic-info.hbs');
 
 
 var OverView = Backbone.View.extend({
@@ -25,15 +26,21 @@ var OverView = Backbone.View.extend({
 
   overviewTemplate: overviewTemplate,
   tableItemTemplate: tableItem,
+  modalInfoTemplate: modalInfo,
 
   nodes: [],
   topics: [],
   services: [],
 
+  waitingForService: false,
+
   events: {
     'click #nodes-tab': 'getROSNodes',
     'click #topics-tab': 'getROSTopics',
-    'click #services-tab': 'getROSServices'
+    'click #services-tab': 'getROSServices',
+
+    'click .publishers-button': 'getTopicPublishers',
+    'click .subscribers-button': 'getTopicSubscribers'
   },
 
   initialize: function() {
@@ -42,6 +49,51 @@ var OverView = Backbone.View.extend({
     Socket.on('web/rosapi/nodes', this.renderROSNodes.bind(this));
     Socket.on('web/rosapi/topics', this.renderROSTopics.bind(this));
     Socket.on('web/rosapi/services', this.renderROSServices.bind(this));
+
+    Socket.on('web/rosapi/subscribers/response', this.showSubs.bind(this));
+    Socket.on('web/rosapi/publishers/response', this.showPubs.bind(this));
+  },
+
+  showPubs: function(pubs) {
+    if (!this.waitingForService) return;
+    if (pubs.length === 0) return;
+
+    console.log('Show modal.');
+    $('#topic-info-modal .modal-body').html(this.modalInfoTemplate({
+      "items": pubs
+    }));
+    $('#topic-info-modal').modal('show');
+  },
+
+  showSubs: function(subs) {
+    if (!this.waitingForService) return;
+
+    if (subs.length === 0) {
+      new PNotify({
+        text: 'No subscribers for this topic.',
+        type: 'info',
+        animate_speed: 'fast'
+      });
+      return;
+    }
+
+    console.log('Show modal.');
+    $('#topic-info-modal .modal-body').html(this.modalInfoTemplate({
+      "items": subs
+    }));
+    $('#topic-info-modal').modal('show');
+  },
+
+  getTopicPublishers: function(event) {
+    var topic = event.originalEvent.target.id.split('-').pop();
+    this.waitingForService = true;
+    Socket.emit('web/rosapi/publishers', topic);
+  },
+
+  getTopicSubscribers: function(event) {
+    var topic = event.originalEvent.target.id.split('-').pop();
+    this.waitingForService = true;
+    Socket.emit('web/rosapi/subscribers', topic);
   },
 
   getROSNodes: function() {
@@ -60,7 +112,10 @@ var OverView = Backbone.View.extend({
   renderROSTopics: function(topics) {
     this.topics = topics;
     this.$(this.topicsTable).html(this.tableItemTemplate(
-      {"items": this.topics}
+      {
+        "items": this.topics,
+        "topics": true
+      }
     ));
   },
 

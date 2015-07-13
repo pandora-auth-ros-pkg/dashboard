@@ -160,6 +160,26 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('service/rosapi/request', req);
   });
 
+  socket.on('web/rosapi/subscribers', function(req) {
+    console.log(req);
+    IOServer.emit('service/rosapi/subscribers', req);
+  });
+
+  socket.on('service/rosapi/subscribers/response', function(res) {
+    console.log(res);
+    IOServer.emit('web/rosapi/subscribers/response', res.subscribers);
+  });
+
+  socket.on('web/rosapi/publishers', function(req) {
+    console.log(req);
+    IOServer.emit('service/rosapi/publishers', req);
+  });
+
+  socket.on('service/rosapi/publishers/response', function(res) {
+    console.log(res);
+    IOServer.emit('web/rosapi/publishers/response', res.publishers);
+  });
+
   socket.on('service/rosapi/services', function(msg) {
     console.log(msg);
     IOServer.emit('web/rosapi/services', msg.services);

@@ -1,5 +1,19 @@
 {{#each items}}
 <tr class="table-col-content">
-    <td>{{this}}</td>
+    <td>
+        <div class="col-md-9">
+            {{this}}
+        </div>
+        <div class="col-md-3">
+            {{#if ../topics}}
+            <button class="btn btn-default publishers-button" id="topic-publisher-{{this}}">
+                    <i class="fa fa-rss fa-lg"></i> &nbsp Publishers
+                </button>
+                <button class="btn btn-default subscribers-button" id="topic-subscriber-{{this}}">
+                    <i class="fa fa-filter fa-lg"></i> &nbsp Subscribers
+                </button>
+            {{/if}}
+        </div>
+    </td>
 </tr>
 {{/each}}

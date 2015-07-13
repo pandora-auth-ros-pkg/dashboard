@@ -41,3 +41,46 @@ socket.on('service/rosapi/request', function(req) {
   });
 });
 
+socket.on('service/rosapi/subscribers', function(req) {
+  var ws = new webSocket('ws://' + ROS_MASTER_IP + ':' + ROS_BRIDGE_PORT);
+
+  ws.on('open', function() {
+    console.log('Service rosapi connected to ROS bridge.');
+    console.log('Request: ' + req);
+    var msg = {
+      op: 'call_service',
+      service: '/rosapi/subscribers',
+      args: [req]
+    };
+    ws.send(JSON.stringify(msg));
+  });
+
+  ws.on('message', function(data) {
+    data = JSON.parse(data.toString());
+    console.log(data);
+
+    socket.emit('service/rosapi/subscribers/response', data.values);
+  });
+});
+
+socket.on('service/rosapi/publishers', function(req) {
+  var ws = new webSocket('ws://' + ROS_MASTER_IP + ':' + ROS_BRIDGE_PORT);
+
+  ws.on('open', function() {
+    console.log('Service rosapi connected to ROS bridge.');
+    console.log('Request: ' + req);
+    var msg = {
+      op: 'call_service',
+      service: '/rosapi/publishers',
+      args: [req]
+    };
+    ws.send(JSON.stringify(msg));
+  });
+
+  ws.on('message', function(data) {
+    data = JSON.parse(data.toString());
+    console.log(data);
+
+    socket.emit('service/rosapi/publishers/response', data.values);
+  });
+});
