@@ -4,15 +4,20 @@
 
 var zmq = require('zmq');
 var io = require('socket.io-client');
+var webSocket = require('ws');
 
 /**
  * Env variables.
  */
 
 var ROS_MASTER_IP = require('../utils/env').ROS_MASTER_IP;
+var ROS_BRIDGE_PORT = require('../utils/env').ROS_BRIDGE_PORT;
 var LOCAL_IP = require('../utils/env').LOCAL_IP;
+
+var killAgentService = '/gui/kill_agent';
 var SERVICE_NAME = 'victimAlert';
 var validateVictimTopic = 'victim_goal';
+
 var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
 
 /**
@@ -20,9 +25,14 @@ var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
  */
 
 var socket = io('http://localhost:3000');
+var ws = new webSocket('ws://' + ROS_MASTER_IP + ':' + ROS_BRIDGE_PORT);
 
 socket.on('connect', function() {
   console.log('Service ' + SERVICE_NAME + ' connected to the socket.io server.');
+});
+
+ws.on('open', function() {
+  console.log('Service ' + SERVICE_NAME + ' connected to ROS Bridge.');
 });
 
 /**
@@ -69,10 +79,22 @@ socket.on('service/victim/response', function(res) {
 socket.on('service/agent/command', function(cmd) {
   if (cmd === 'stop') {
     console.log('Stopping the agent.');
+
+    var msg = {
+      op: "call_service",
+      service: killAgentService,
+      args: [{}]
+    };
+    ws.send(JSON.stringify(msg));
+    ws.on('message', function(msg) {
+      console.log(msg);
+      socket.emit('service/agent/status/success');
+    });
+
   } else {
     console.log('Starting agent with strategy: ' + cmd);
+    agentHandler.send(cmd);
   }
-  agentHandler.send(cmd);
 });
 
 /**
