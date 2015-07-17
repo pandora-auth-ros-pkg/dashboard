@@ -42,6 +42,39 @@ var AgentView = Backbone.View.extend({
         value: 'mapping'
       }
     ];
+
+    var modes = [{
+        name: 'Off',
+        value: 0
+      }, {
+        name: 'Autonomous',
+        value: 1
+      }, {
+        name: 'Exploration rescue',
+        value: 2
+      }, {
+        name: 'Identification',
+        value: 3
+      }, {
+        name: 'Sensor hold',
+        value: 4
+      }, {
+        name: 'Semi autonomous',
+        value: 5
+      }, {
+        name: 'Teleoperation',
+        value: 6
+      }, {
+        name: 'Sensor Test',
+        value: 7
+      }, {
+        name: 'Exploration mapping',
+        value: 8
+      }, {
+        name: 'Terminating',
+        value: 9
+      }];
+    this.model.set({modes: modes});
     this.model.set({strategies: strategies});
     this.model.subscribe();
     Dispatcher.on('agent:change:state', this.updateState, this);
@@ -58,7 +91,14 @@ var AgentView = Backbone.View.extend({
     'click #reject-victim': 'rejectVictim',
     'click #accept-victim': 'acceptVictim',
     'click #start-agent': 'startAgent',
-    'click #stop-agent': 'stopAgent'
+    'click #stop-agent': 'stopAgent',
+    'click #change-robot-mode': 'changeRobotMode'
+  },
+
+  changeRobotMode: function(event) {
+    var mode = $('#robot-mode-selection').val();
+    console.log(mode);
+    Socket.emit('web/robot/changeMode', mode);
   },
 
   rejectVictim: function() {

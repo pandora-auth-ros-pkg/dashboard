@@ -10,51 +10,82 @@
                             <i class="fa fa-tag fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                    <div class="huge"> Signs of Life  </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel-body">
-            <strong>Probabilities</strong>
-            <a data-toggle="collapse" data-target="#signs-of-life-probabilities"
-                aria-controls="target-orientation"> <i class="fa fa-chevron-right"></i>
-            </a>
-
-            <div class="collapse" id="signs-of-life-probabilities"> </div>
-        </div>
-    </div>
-</div>
-
-<div class="row" id="validation-panel"> </div>
-
-<div class="row" id="agent-commands">
-    <div class="col-md-12">
-        <div class="panel">
-            <div class="panel-heading">
-                <i class="fa fa-gear fa-2x"></i>
-            </div>
-            <div class="panel-body">
-                <div class="col-md-9">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label" for="select">Strategy</label>
-                            <select id="strategy-selection" class="form-control">
-                                {{#each strategies}}
-                                <option value="{{this.value}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
+                            <div class="huge"> Signs of Life  </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <button class="btn btn-primary btn-lg btn-block" id="start-agent" type="submit"> Start </button>
+                <div class="panel-body">
+                    <strong>Probabilities</strong>
+                    <a data-toggle="collapse" data-target="#signs-of-life-probabilities"
+                        aria-controls="target-orientation"> <i class="fa fa-chevron-right"></i>
+                    </a>
+
+                    <div class="collapse" id="signs-of-life-probabilities"> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="validation-panel"> </div>
+
+        <div class="row" id="agent-commands">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <i class="fa fa-gear fa-2x"></i>
                     </div>
+                    <div class="panel-body">
+                        <div class="col-md-9">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="select">Strategy</label>
+                                    <select id="strategy-selection" class="form-control">
+                                        {{#each strategies}}
+                                        <option value="{{this.value}}">{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <button class="btn btn-primary btn-lg btn-block" id="start-agent" type="submit"> Start </button>
+                            </div>
 
-                    <hr>
+                            <hr>
 
-                    <div class="row">
-                        <button class="btn btn-primary btn-lg btn-block" id="stop-agent" type="submit"> Stop </button>
+                            <div class="row">
+                                <button class="btn btn-primary btn-lg btn-block" id="stop-agent" type="submit"> Stop </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="robot-states-panel">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <i class="fa fa-gear fa-2x"></i>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-9">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="select">Robot Mode</label>
+                                    <select id="robot-mode-selection" class="form-control">
+                                        {{#each modes}}
+                                        <option value="{{this.value}}">{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <button class="btn btn-primary btn-lg btn-block" id="change-robot-mode" type="submit"> Change State </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

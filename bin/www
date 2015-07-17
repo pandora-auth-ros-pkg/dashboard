@@ -195,6 +195,11 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('web/rosapi/nodes', msg.nodes);
   });
 
+  socket.on('web/robot/changeMode', function(mode) {
+    console.log(mode);
+    IOServer.emit('service/robot/changeMode', mode);
+  });
+
 });
 
 /**
