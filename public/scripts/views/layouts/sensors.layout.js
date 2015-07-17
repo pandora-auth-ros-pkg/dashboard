@@ -15,14 +15,10 @@ var _ = require('underscore');
 var Battery = require('../../models/battery');
 var Temperature = require('../../models/temperature');
 var SimpleSensor = require('../../models/simple.sensor');
-var IMU = require('../../models/imu');
-var Sonar = require('../../models/sonar');
 
 var BatteryView = require('../battery');
 var TemperatureView = require('../temperature');
 var SimpleSensorView = require('../simple.sensor');
-var IMUView = require('../imu');
-var SonarView = require('../sonar');
 
 /**
  * Templates.
@@ -89,24 +85,6 @@ var SensorsLayout = Backbone.View.extend({
         })
       }),
       selector: '.simple-sensors #thermal'
-    },
-    'imu': {
-      view: new IMUView({
-        model: new IMU({
-          name: 'IMU measurements',
-          topic: 'web/sensors/imu'
-        })
-      }),
-      selector: '#imu'
-    },
-    'sonar': {
-      view: new SonarView({
-        model: new Sonar({
-          name: 'Sonar',
-          topic: 'web/sensors/sonar'
-        })
-      }),
-      selector: '#sonars'
     }
   },
 
