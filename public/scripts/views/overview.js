@@ -101,7 +101,7 @@ var OverView = Backbone.View.extend({
   },
 
   renderROSNodes: function(nodes) {
-    this.nodes = nodes;
+    this.nodes = nodes.sort();
     this.$(this.nodesTable).html(this.tableItemTemplate({"items": this.nodes}));
   },
 
@@ -110,7 +110,7 @@ var OverView = Backbone.View.extend({
   },
 
   renderROSTopics: function(topics) {
-    this.topics = topics;
+    this.topics = topics.sort();
     this.$(this.topicsTable).html(this.tableItemTemplate(
       {
         "items": this.topics,
@@ -125,7 +125,7 @@ var OverView = Backbone.View.extend({
   },
 
   renderROSServices: function(services) {
-    this.services = services;
+    this.services = services.sort();
     this.$(this.servicesTable).html(this.tableItemTemplate(
       {"items": this.services}
     ));
