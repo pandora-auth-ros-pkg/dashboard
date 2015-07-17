@@ -7,7 +7,7 @@ var Service = require('./service');
 
 var QRAlert = new Service({
   name: 'qrAlert',
-  topic: '/data_fusion/alert_handler/qr_notification',
+  topic: '/data_fusion/qr_info',
   op: 'subscribe',
   msgType: 'pandora_data_fusion_msgs/QrInfo',
   serverTopic: 'alert/qr'

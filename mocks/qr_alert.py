@@ -13,7 +13,7 @@ from pandora_data_fusion_msgs.msg import QrInfo
 
 def publish_qr_alert(delay):
     rospy.init_node('qr_notification')
-    pub = rospy.Publisher('/data_fusion/alert_handler/qr_notification', QrInfo)
+    pub = rospy.Publisher('/data_fusion/qr_info', QrInfo)
     msg = QrInfo()
 
     while not rospy.is_shutdown():
