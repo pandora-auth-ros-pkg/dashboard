@@ -34,27 +34,43 @@
                         <i class="fa fa-gear fa-2x"></i>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-9">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label" for="select">Strategy</label>
-                                    <select id="strategy-selection" class="form-control">
-                                        {{#each strategies}}
-                                        <option value="{{this.value}}">{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="select">Strategy</label>
+                                        <select id="strategy-selection" class="form-control">
+                                            {{#each strategies}}
+                                            <option value="{{this.value}}">{{this.name}}</option>
+                                            {{/each}}
+                                        </select>
+                                        </br>
+                                        <label class="control-label" for="input">Victim ID</label>
+                                        <input type="number" class="form-control" id="target-victim-id" placeholder="0">
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <button class="btn btn-primary btn-lg btn-block" id="start-agent" type="submit"> Start </button>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <button class="btn btn-primary btn-lg btn-block" id="stop-agent" type="submit"> Stop </button>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="row">
-                                <button class="btn btn-primary btn-lg btn-block" id="start-agent" type="submit"> Start </button>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-lg btn-block" id="update-victim-info" type="submit"> Victim Probabilities </button>
                             </div>
 
-                            <hr>
-
-                            <div class="row">
-                                <button class="btn btn-primary btn-lg btn-block" id="stop-agent" type="submit"> Stop </button>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-lg btn-block" id="show-validation-panel" type="submit"> Validation </button>
                             </div>
                         </div>
                     </div>
@@ -85,6 +101,9 @@
                             <div class="row">
                                 <button class="btn btn-primary btn-lg btn-block" id="change-robot-mode" type="submit"> Change State </button>
                             </div>
+
+                            <hr>
+
                         </div>
                     </div>
                 </div>

@@ -200,6 +200,19 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('service/robot/changeMode', mode);
   });
 
+  socket.on('web/victimProbabilities/get', function(victimID) {
+    console.log(victimID);
+    IOServer.emit('service/victimProbabilities/get', victimID);
+  });
+
+  socket.on('service/victimProbabilities/response', function(res) {
+    IOServer.emit('web/victimProbabilities/response', res);
+  });
+
+  socket.on('service/victimProbabilities/error', function(res) {
+    IOServer.emit('web/victimProbabilities/error');
+  });
+
 });
 
 /**

@@ -29,6 +29,7 @@ var AgentView = Backbone.View.extend({
   victimDialogTemplate: victimDialog,
 
   waitingForValidation: false,
+  targetID: 0,
 
   initialize: function() {
     console.log('View Agent initialized');
@@ -85,6 +86,8 @@ var AgentView = Backbone.View.extend({
     Socket.on('web/agent/status/success', this.showAgentSuccessAlert.bind(this));
     Socket.on('web/agent/status/error', this.showAgentErrorAlert.bind(this));
     Socket.on('web/agent/status/pid', this.showAgentPIDAlert.bind(this));
+    Socket.on('web/victimProbabilities/error', this.showVictimInfoError.bind(this));
+    Socket.on('web/victimProbabilities/response', this.showVictimInfo.bind(this));
   },
 
   events: {
@@ -92,7 +95,53 @@ var AgentView = Backbone.View.extend({
     'click #accept-victim': 'acceptVictim',
     'click #start-agent': 'startAgent',
     'click #stop-agent': 'stopAgent',
-    'click #change-robot-mode': 'changeRobotMode'
+    'click #change-robot-mode': 'changeRobotMode',
+    'click #show-validation-panel': 'showValidationPanel',
+    'click #update-victim-info': 'updateVictimInfo'
+  },
+
+  showVictimInfoError: function() {
+    console.log('Error fetching probabilities.');
+
+    new PNotify({
+      title: 'Victim #' + this.targetID,
+      text: "Couldn't retrieve probabilities.",
+      type: 'error'
+    });
+  },
+
+  showVictimInfo: function(data) {
+    console.log(data);
+    var model = {
+      probabilities: data,
+      id: this.targetID
+    };
+    this.renderPartial(this.targetPanelTemplate, '#target-panel', 'target panel', model);
+  },
+
+  updateVictimInfo: function() {
+    console.log('Updating victim info.');
+
+    this.targetID = $("#target-victim-id").val();
+
+    // Send the request.
+    Socket.emit('web/victimProbabilities/get', this.targetID);
+
+    console.log(this.targetID);
+  },
+
+  showValidationPanel: function() {
+    console.log('Show victim alert');
+    this.waitingForValidation = true;
+
+    this.render();
+    this.model.set({validationImageTopic: '/kinect/rgb/image_raw'});
+
+    // Show the modal.
+    this.renderPartial(
+      this.validationPanelTemplate, '#validation-panel', 'validation panel');
+
+    return this;
   },
 
   changeRobotMode: function(event) {
