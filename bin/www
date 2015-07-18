@@ -114,6 +114,35 @@ IOServer.on('connection', function(socket) {
     IOServer.emit('web/alert/qr', alert);
   });
 
+  socket.on('service/alert/sound', function(alert) {
+    console.log(alert);
+    IOServer.emit('web/alert/sound', alert);
+  });
+
+  socket.on('service/alert/thermal', function(alert) {
+    console.log(alert);
+    IOServer.emit('web/alert/thermal', alert);
+  });
+
+  socket.on('service/alert/motion', function(alert) {
+    console.log(alert);
+    IOServer.emit('web/alert/motion', alert);
+  });
+
+  socket.on('service/alert/hazmat', function(alert) {
+    console.log(alert);
+    IOServer.emit('web/alert/hazmat', alert);
+  });
+
+  socket.on('service/alert/co2', function(alert) {
+    console.log(alert);
+    IOServer.emit('web/alert/co2', alert);
+  });
+
+  socket.on('service/alert/visual', function(alert) {
+    IOServer.emit('web/alert/visual', alert);
+  });
+
   socket.on('service/agent/status/success', function() {
     IOServer.emit('web/agent/status/success');
   });

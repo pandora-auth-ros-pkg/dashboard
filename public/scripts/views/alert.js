@@ -32,13 +32,128 @@ var AlertView = Backbone.View.extend({
 
   initialize: function() {
     console.log('View alertfeed initialized');
-    console.log(this);
+
     ioClient.on('web/alert/qr', this.appendQRAlert.bind(this));
+    ioClient.on('web/alert/hazmat', this.appendHazmatAlert.bind(this));
+    ioClient.on('web/alert/motion', this.appendMotionAlert.bind(this));
+    ioClient.on('web/alert/co2', this.appendCo2Alert.bind(this));
+    ioClient.on('web/alert/visual', this.appendVisualAlert.bind(this));
+    ioClient.on('web/alert/thermal', this.appendThermalAlert.bind(this));
+    ioClient.on('web/alert/sound', this.appendSoundAlert.bind(this));
+
     ioClient.on('web/victim/alert', this.appendVictimAlert.bind(this));
   },
 
-  qrs: [],
+  /**
+   * Actual victims.
+   */
+
   victims: [],
+
+  /**
+   * Signs of life.
+   */
+
+  qrs: [],
+  hazmats: [],
+  co2: [],
+  visualVictims: [],
+  thermal: [],
+  sound: [],
+  motion: [],
+
+  appendHazmatAlert: function(msg) {
+    console.log('A Hazmat alert has arrived.');
+
+    new PNotify({
+      title: 'Hazmat alert',
+      text: 'Pattern type: ' + msg.patternType,
+      hide: false,
+      type: 'success'
+    });
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'Hazmat'});
+    this.hazmat.push(alert);
+  },
+
+  appendThermalAlert: function(msg) {
+    console.log('A Thermal alert has arrived.');
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'Thermal'});
+    this.thermal.push(alert);
+
+    new PNotify({
+      title: 'Thermal alert',
+      text: 'Temperature: ' + msg.temperature,
+      hide: false,
+      type: 'success'
+    });
+  },
+
+  appendCo2Alert: function(msg) {
+    console.log('A Co2 alert has arrived.');
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'CO2'});
+    this.co2.push(alert);
+
+    new PNotify({
+      title: 'Co2 alert',
+      text: 'Probability: ' + msg.probability,
+      hide: false,
+      type: 'success'
+    });
+  },
+
+  appendMotionAlert: function(msg) {
+    console.log('A motion alert has arrived.');
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'Motion'});
+    this.motion.push(alert);
+
+    new PNotify({
+      title: 'Motion alert',
+      text: 'Probability: ' + msg.probability,
+      hide: false,
+      type: 'success'
+    });
+  },
+
+  appendSoundAlert: function(msg) {
+    console.log('A sound alert has arrived.');
+
+    console.log(msg.word);
+    if (msg.word == 0) return;
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'Sound'});
+    this.sound.push(alert);
+
+    new PNotify({
+      title: 'Sound alert',
+      text: 'Word: ' + msg.word + ', Probability: ' + msg.probability,
+      hide: false,
+      type: 'success'
+    });
+  },
+
+  appendVisualAlert: function(msg) {
+    console.log('A visual alert has arrived.');
+
+    var alert = new Alert(msg);
+    alert.set({'type': 'Visual'});
+    this.visualVictims.push(alert);
+
+    new PNotify({
+      title: 'Visual alert',
+      text: 'Probability: ' + msg.probability,
+      hide: false,
+      type: 'success'
+    });
+  },
 
   appendQRAlert: function(msg) {
 
@@ -57,18 +172,7 @@ var AlertView = Backbone.View.extend({
       title: 'A QR arrived',
       text: 'More info on the alerts section',
       hide: false,
-      type: 'success',
-      confirm: {
-        confirm: true
-      },
-      buttons: {
-        closer: false
-      },
-      history: {
-        history: false
-      }
-    }).get().on('pnotify.confirm', function() {
-      console.log('QR validated.');
+      type: 'success'
     });
   },
 

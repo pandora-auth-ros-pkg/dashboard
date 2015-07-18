@@ -34,3 +34,9 @@ $('.alert-feed button.clean-alerts').on('click', function() {
 $('#slide-menu-button').on('click', function() {
   slider.toggle();
 });
+
+$("body").keypress(function(event) {
+  if (event.which === 99) {
+    PNotify.removeAll();
+  }
+});
