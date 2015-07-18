@@ -41,9 +41,15 @@ class VictimValidator(object):
         print("Sending victim alerts at port " + SEND_PORT)
         self.alert_publisher.bind('tcp://*:' + SEND_PORT)
 
+        # Start the action server.
+        self.action.start()
+
     def handle_goals(self, goal):
 
+        self.operator_responded.clear()
+
         self.current_goal = json.dumps({
+            "id": goal.victimId,
             "x": goal.victimFoundx,
             "y": goal.victimFoundy,
             "probability": goal.probability,
@@ -55,9 +61,9 @@ class VictimValidator(object):
             self.action.set_preempted()
 
         # Send the goal to the subscribers.
+        print('Received goal from the agent...')
         self.alert_publisher.send('%s %s' % ('victim_goal', self.current_goal))
-        print('Checking if the operator responded...')
-        print(self.operator_responded.is_set())
+        print('Waiting for operator response...')
         self.operator_responded.wait()
 
         # Send the response to the client.
@@ -68,21 +74,28 @@ class VictimValidator(object):
         self.operator_responded.clear()
 
     def start(self):
-        # Start the action server.
-        rospy.init_node('bridge_server')
-        self.action.start()
-
         while True:
             self.operator_responded.clear()
             print('Waiting for message')
-            res = self.response_receiver.recv()
-            print(res)
-            self.operator_response = True if res == 'true' else False
-            self.operator_responded.set()
+            try:
+                res = self.response_receiver.recv()
+
+                if res == 'true':
+                    self.operator_response = True
+                    self.operator_responded.set()
+                    print("Received " + str(self.operator_response))
+                elif res == 'false':
+                    self.operator_responded.set()
+                    self.operator_response = False
+                    print("Received " + str(self.operator_response))
+
+            except KeyboardInterrupt:
+                print("Interrupt received, proceeding...")
 
 
 if __name__ == '__main__':
 
+    rospy.init_node('bridge_server')
     if len(sys.argv) > 1:
         gui_ip = sys.argv[1]
     else:
