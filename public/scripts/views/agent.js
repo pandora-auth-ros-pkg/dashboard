@@ -276,6 +276,10 @@ var AgentView = Backbone.View.extend({
     this.render();
     this.model.set({validationImageTopic: '/kinect/rgb/image_raw'});
 
+    var alert = this.model.get('alert');
+    this.targetID = alert.id;
+    Socket.emit('web/victimProbabilities/get', this.targetID);
+
     // Show the modal.
     this.renderPartial(
       this.validationPanelTemplate, '#validation-panel', 'validation panel');

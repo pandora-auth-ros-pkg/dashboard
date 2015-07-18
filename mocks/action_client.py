@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 import rospy
-from random import random
+from random import random, randint
 from actionlib import SimpleActionClient as Client
 from pandora_gui_msgs.msg import ValidateVictimGUIAction, ValidateVictimGUIGoal
 
@@ -12,6 +12,7 @@ rospy.init_node('validation_client')
 
 client = Client(topic, ValidateVictimGUIAction)
 goal = ValidateVictimGUIGoal()
+goal.victimId = randint(1, 10)
 goal.victimFoundx = random() * 10
 goal.victimFoundy = random() * 10
 goal.probability = 0.6
