@@ -42,8 +42,12 @@ var CameraView = Backbone.View.extend({
         name: 'Left camera'
       },
       {
-        topic: '/thermal/image',
+        topic: 'rpi2/thermal/image',
         name: 'Thermal camera'
+      },
+      {
+	topic: 'empty',
+	name: 'OFF'
       }
     ];
     this.model.set({rosTopics: rosImageTopics});
