@@ -95,6 +95,7 @@ var AgentView = Backbone.View.extend({
     'click #accept-victim': 'acceptVictim',
     'click #start-agent': 'startAgent',
     'click #stop-agent': 'stopAgent',
+    'click #kill-agent': 'killAgent',
     'click #change-robot-mode': 'changeRobotMode',
     'click #show-validation-panel': 'showValidationPanel',
     'click #update-victim-info': 'updateVictimInfo'
@@ -173,6 +174,11 @@ var AgentView = Backbone.View.extend({
   stopAgent: function() {
     console.log('Sending stop command to the robot agent.');
     Socket.emit('web/agent/command', 'stop');
+  },
+
+  killAgent: function() {
+    console.log('Sending kill command to the robot agent.');
+    Socket.emit('web/agent/command', 'kill');
   },
 
   updateSignsOfLife: function(msg) {

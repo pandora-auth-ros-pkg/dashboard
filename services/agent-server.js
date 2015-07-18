@@ -90,7 +90,9 @@ socket.on('service/agent/command', function(cmd) {
       console.log(msg);
       socket.emit('service/agent/status/success');
     });
-
+  } else if (cmd === 'kill') {
+    console.log('Killing the agent.');
+    agentHandler.send(cmd);
   } else {
     console.log('Starting agent with strategy: ' + cmd);
     agentHandler.send(cmd);
