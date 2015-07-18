@@ -24,94 +24,94 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="row" id="validation-panel"> </div>
+<div class="row" id="validation-panel"> </div>
 
-        <div class="row" id="agent-commands">
-            <div class="col-md-12">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <i class="fa fa-gear fa-2x"></i>
+<div class="row" id="agent-commands">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <i class="fa fa-gear fa-2x"></i>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="select">Strategy</label>
+                                <select id="strategy-selection" class="form-control">
+                                    {{#each strategies}}
+                                    <option value="{{this.value}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                                </br>
+                                <label class="control-label" for="input">Victim ID</label>
+                                <input type="number" class="form-control" id="target-victim-id" placeholder="0">
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
+                    <div class="col-md-3">
                         <div class="row">
-                            <div class="col-md-9">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="select">Strategy</label>
-                                        <select id="strategy-selection" class="form-control">
-                                            {{#each strategies}}
-                                            <option value="{{this.value}}">{{this.name}}</option>
-                                            {{/each}}
-                                        </select>
-                                        </br>
-                                        <label class="control-label" for="input">Victim ID</label>
-                                        <input type="number" class="form-control" id="target-victim-id" placeholder="0">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <button class="btn btn-success btn-lg btn-block" id="start-agent" type="submit"> Start </button>
-                                </div>
-
-                                <hr>
-
-                                <div class="row">
-                                    <button class="btn btn-warning btn-lg btn-block" id="stop-agent" type="submit"> Stop </button>
-                                </div>
-
-                                <hr>
-
-                                <div class="row">
-                                    <button class="btn btn-danger btn-lg btn-block" id="kill-agent" type="submit"> Kill </button>
-                                </div>
-
-                            </div>
+                            <button class="btn btn-success btn-lg btn-block" id="start-agent" type="submit"> Start </button>
                         </div>
+
                         <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button class="btn btn-primary btn-lg btn-block" id="update-victim-info" type="submit"> Victim Probabilities </button>
-                            </div>
 
-                            <div class="col-md-6">
-                                <button class="btn btn-primary btn-lg btn-block" id="show-validation-panel" type="submit"> Validation </button>
-                            </div>
+                        <div class="row">
+                            <button class="btn btn-warning btn-lg btn-block" id="stop-agent" type="submit"> Stop </button>
                         </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <button class="btn btn-danger btn-lg btn-block" id="kill-agent" type="submit"> Kill </button>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-lg btn-block" id="update-victim-info" type="submit"> Victim Probabilities </button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-lg btn-block" id="show-validation-panel" type="submit"> Validation </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="row" id="robot-states-panel">
-            <div class="col-md-12">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <i class="fa fa-gear fa-2x"></i>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-9">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label" for="select">Robot Mode</label>
-                                    <select id="robot-mode-selection" class="form-control">
-                                        {{#each modes}}
-                                        <option value="{{this.value}}">{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="row">
-                                <button class="btn btn-primary btn-lg btn-block" id="change-robot-mode" type="submit"> Change State </button>
-                            </div>
-
-                            <hr>
-
+<div class="row" id="robot-states-panel">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <i class="fa fa-gear fa-2x"></i>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-9">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="select">Robot Mode</label>
+                            <select id="robot-mode-selection" class="form-control">
+                                {{#each modes}}
+                                <option value="{{this.value}}">{{this.name}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <button class="btn btn-primary btn-lg btn-block" id="change-robot-mode" type="submit"> Change State </button>
+                    </div>
+
+                    <hr>
+
                 </div>
             </div>
         </div>
