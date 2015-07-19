@@ -2,45 +2,6 @@
 {{#if type}}
 <div class="alert alert-dismissible alert-item">
     <button type="button" class="close" data-dismiss="alert">x</button>
-    <h4 class="list-group-item-heading">{{type}} - #{{id}}</h4>
-    <strong>Alert Info &nbsp</strong>
-    <a data-toggle="collapse" data-target="#alert-info-{{type}}-{{id}}" aria-controls="target-orientation">
-        <i class="fa fa-chevron-right"></i>
-    </a>
-    <ul class="list-group collapse" id="alert-info-{{type}}-{{id}}">
-        <li class="list-group-item alert-item">
-            <strong>Position: &nbsp </strong>
-            <a data-toggle="collapse" data-target="#target-position-{{type}}-{{id}}" aria-controls="target-position">
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="list-group collapse" id="target-position-{{type}}-{{id}}">
-                <li class="list-group-item alert-item">
-                    x: &nbsp {{position.x}}
-                </li>
-                <li class="list-group-item alert-item">
-                    y: &nbsp {{position.y}}
-                </li>
-                <li class="list-group-item alert-item">
-                    z: &nbsp {{position.z}}
-                </li>
-            </ul>
-        </li>
-        <li class="list-group-item alert-item">
-            <strong>Probability: &nbsp </strong>{{probability}}
-        </li>
-        {{#if content}}
-        <li class="list-group-item alert-item">
-            <strong>Content: &nbsp </strong>{{content}}
-        </li>
-        {{/if}}
-
-        {{#if timeFound}}
-        <li class="list-group-item alert-item">
-            <strong>Time found: &nbsp </strong>{{timeFound}}
-        </li>
-        {{/if}}
-    </ul>
-</div>
-
+    <h4 class="list-group-item-heading">{{type}} - {{content}} </h4>
 </div>
 {{/if}}

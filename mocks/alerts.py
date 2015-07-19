@@ -17,6 +17,9 @@ from pandora_data_fusion_msgs.msg import QrInfo
 from pandora_vision_msgs.msg import HazmatAlertVector
 from pandora_vision_msgs.msg import HazmatAlert
 
+from pandora_vision_msgs.msg import QRAlertVector
+from pandora_vision_msgs.msg import QRAlert
+
 from pandora_vision_msgs.msg import ThermalAlertVector
 from pandora_vision_msgs.msg import ThermalAlert
 
@@ -25,17 +28,16 @@ from pandora_common_msgs.msg import GeneralAlertInfo
 
 
 def qr_alert(delay):
-    pub = rospy.Publisher('/data_fusion/qr_info', QrInfo)
-    msg = QrInfo()
+    pub = rospy.Publisher('/vision/qr_alert', QRAlertVector)
+    msg = QRAlertVector()
 
     while not rospy.is_shutdown():
         print('Sending QR alert...')
-        msg.id = random.randint(0, 10)
-        msg.qrFrameId = 'kinect_frame'
-        msg.timeFound = rospy.Time.now()
-        msg.qrPose = PoseStamped()
-        msg.probability = random.random()
-        msg.content = 'qr content'
+        alert = QRAlert()
+        alert.QRcontent = 'QR content'
+        alert.info.probability = random.random()
+
+        msg.alerts = [alert]
 
         pub.publish(msg)
         time.sleep(delay)
@@ -143,3 +145,5 @@ if __name__ == '__main__':
         thermal_alert(delay)
     elif alert == 'motion':
         motion_alert(delay)
+    elif alert == 'qr':
+        qr_alert(delay)

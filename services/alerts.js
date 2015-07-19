@@ -26,18 +26,14 @@ var QRAlert = new Service({
   name: 'qrAlert',
   topic: qrTopic,
   op: 'subscribe',
-  msgType: 'pandora_data_fusion_msgs/QrInfo',
+  msgType: 'pandora_vision_msgs/QRAlertVector',
   serverTopic: 'alert/qr'
 }, function(msg) {
-  var date = new Date(msg.timeFound.secs * 1000);
+  var alert = msg.alerts[0];
 
   return {
-    id: msg.id,
-    content: msg.content,
-    probability: msg.probability.toFixed(2),
-    timeFound: date.toString(),
-    frameID: msg.qrPose.header.frame_id,
-    qrFrameId: msg.qrFrameId
+    content: alert.QRcontent,
+    probability: alert.info.probability.toFixed(2)
   };
 });
 

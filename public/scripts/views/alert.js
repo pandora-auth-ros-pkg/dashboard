@@ -198,18 +198,27 @@ var AlertView = Backbone.View.extend({
     // Create a new alert model for this alert.
     var alert = new Alert(msg);
     alert.set({'type': 'QR'});
+
+    // Show stacked notification.
+    new PNotify({
+      title: 'A QR arrived',
+      text: 'Content: ' + msg.content + ', Probability: ' + msg.probability,
+      hide: false,
+      type: 'success'
+    });
+
+    // If a qr already exists.
+    for (var i = 0; i < this.qrs.length; i++) {
+      if (this.qrs[i].get('content') == msg.content) {
+        return;
+      }
+    }
+
     this.qrs.push(alert);
 
     // Append the alert into the list.
     this.$el.append(this.qrTemplate(alert.toJSON()));
 
-    // Show stacked notification.
-    new PNotify({
-      title: 'A QR arrived',
-      text: 'More info on the alerts section',
-      hide: false,
-      type: 'success'
-    });
   },
 
   appendVictimAlert: function(msg) {
