@@ -31,7 +31,33 @@ var AlertView = Backbone.View.extend({
   },
 
   initialize: function() {
+    this.enableAlerts = true;
+
+    var _this = this;
     console.log('View alertfeed initialized');
+
+    $("body").keypress(function(event) {
+      if (event.which === 115) {
+        console.log('Toggling alerts.');
+        console.log(_this.enableAlerts);
+        if (_this.enableAlerts === true) {
+          _this.enableAlerts = false;
+          new PNotify({
+            title: 'Alerts disabled',
+            hide: true,
+            type: 'danger'
+          });
+        } else {
+          new PNotify({
+            title: 'Alerts enabled',
+            hide: true,
+            type: 'success'
+          });
+          _this.enableAlerts = true;
+        }
+        console.log(_this.enableAlerts);
+      }
+    });
 
     ioClient.on('web/alert/qr', this.appendQRAlert.bind(this));
     ioClient.on('web/alert/hazmat', this.appendHazmatAlert.bind(this));
@@ -63,6 +89,8 @@ var AlertView = Backbone.View.extend({
   motion: [],
 
   appendHazmatAlert: function(msg) {
+    if (this.enableAlerts === false) return;
+
     console.log('A Hazmat alert has arrived.');
 
     new PNotify({
@@ -74,10 +102,12 @@ var AlertView = Backbone.View.extend({
 
     var alert = new Alert(msg);
     alert.set({'type': 'Hazmat'});
-    this.hazmat.push(alert);
+    this.hazmats.push(alert);
   },
 
   appendThermalAlert: function(msg) {
+    if (this.enableAlerts === false) return;
+
     console.log('A Thermal alert has arrived.');
 
     var alert = new Alert(msg);
@@ -93,6 +123,8 @@ var AlertView = Backbone.View.extend({
   },
 
   appendCo2Alert: function(msg) {
+    if (this.enableAlerts === false) return;
+
     console.log('A Co2 alert has arrived.');
 
     var alert = new Alert(msg);
@@ -108,6 +140,8 @@ var AlertView = Backbone.View.extend({
   },
 
   appendMotionAlert: function(msg) {
+    if (this.enableAlerts === false) return;
+
     console.log('A motion alert has arrived.');
 
     var alert = new Alert(msg);
@@ -123,6 +157,9 @@ var AlertView = Backbone.View.extend({
   },
 
   appendSoundAlert: function(msg) {
+    if (this.enableAlerts === false) return;
+    if (msg.word == 0) return;
+
     console.log('A sound alert has arrived.');
 
     var alert = new Alert(msg);
@@ -138,6 +175,8 @@ var AlertView = Backbone.View.extend({
   },
 
   appendVisualAlert: function(msg) {
+    if (this.enableAlerts === false) return;
+
     console.log('A visual alert has arrived.');
 
     var alert = new Alert(msg);

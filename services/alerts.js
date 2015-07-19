@@ -4,7 +4,7 @@
 
 var Service = require('./service');
 
-var qrTopic = '/data_fusion/qr_info';
+var qrTopic = '/vision/qr_alert';
 
 var hazmatTopic = '/vision/hazmat_alert';
 var hazmatMsg = 'pandora_vision_msgs/HazmatAlertVector';
