@@ -30,12 +30,6 @@
         "watch": true
     },
     {
-        "script": "./services/thermal.js",
-        "name": "thermal",
-        "exec_mode": "fork",
-        "watch": true
-    },
-    {
         "script": "./services/agent-server.js",
         "name": "agent-server",
         "exec_mode": "fork",
@@ -70,8 +64,13 @@
         "name": "rosapi",
         "exec_mode": "fork",
         "watch": true
+    },
+    {
+        "script": "./services/victim-info.js",
+        "name": "victim-info",
+        "exec_mode": "fork",
+        "watch": true
     }
-
 ]
 
 

@@ -125,9 +125,6 @@ var AlertView = Backbone.View.extend({
   appendSoundAlert: function(msg) {
     console.log('A sound alert has arrived.');
 
-    console.log(msg.word);
-    if (msg.word == 0) return;
-
     var alert = new Alert(msg);
     alert.set({'type': 'Sound'});
     this.sound.push(alert);
