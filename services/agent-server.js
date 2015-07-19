@@ -15,10 +15,6 @@ var ROS_BRIDGE_PORT = require('../utils/env').ROS_BRIDGE_PORT;
 var LOCAL_IP = require('../utils/env').LOCAL_IP;
 
 var killAgentService = '/gui/kill_agent';
-var SERVICE_NAME = 'victimAlert';
-var validateVictimTopic = 'victim_goal';
-
-var validateVictimTopicLength = Buffer.byteLength(validateVictimTopic);
 
 /**
  * Connect with the socket.io server.
@@ -28,19 +24,12 @@ var socket = io('http://localhost:3000');
 var ws = new webSocket('ws://' + ROS_MASTER_IP + ':' + ROS_BRIDGE_PORT);
 
 socket.on('connect', function() {
-  console.log('Service ' + SERVICE_NAME + ' connected to the socket.io server.');
+  console.log('Service agent controller connected to the socket.io server.');
 });
 
 ws.on('open', function() {
-  console.log('Service ' + SERVICE_NAME + ' connected to ROS Bridge.');
+  console.log('Service agent controller connected to ROS Bridge.');
 });
-
-/**
- * Receive victim alerts from the agent, and validate them.
- */
-
-var alertReceiver = zmq.socket('sub');
-var validator = zmq.socket('pub');
 
 /**
  * Control the agent remotely.
@@ -48,33 +37,6 @@ var validator = zmq.socket('pub');
 
 var agentHandler = zmq.socket('req');
 
-
-alertReceiver.subscribe(validateVictimTopic);
-
-alertReceiver.on('message', function(data) {
-
-  // Remove the topic name.
-  var msg = data.toString('utf8', validateVictimTopicLength) .replace(/\s/g, '');
-  msg = JSON.parse(msg);
-  msg.probability = msg.probability.toFixed(2);
-  msg.x = msg.x.toFixed(2);
-  msg.y = msg.y.toFixed(2);
-  console.log(msg);
-  socket.emit('service/victim/alert', msg);
-});
-
-/**
- * Receive commands from the web client.
- */
-
-socket.on('service/victim/response', function(res) {
-  if (res === true) {
-    console.log('the victim is valid.');
-  } else {
-    console.log('the victim is not valid');
-  }
-  validator.send(['victim_validation', res]);
-});
 
 socket.on('service/agent/command', function(cmd) {
   if (cmd === 'stop') {
@@ -117,7 +79,4 @@ agentHandler.on('message', function(msg) {
   }
 });
 
-alertReceiver.connect('tcp://' + ROS_MASTER_IP + ':6666');
 agentHandler.connect('tcp://' + ROS_MASTER_IP + ':5555');
-
-validator.bindSync('tcp://' + LOCAL_IP + ':6667');

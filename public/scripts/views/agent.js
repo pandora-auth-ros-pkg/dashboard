@@ -13,9 +13,6 @@ var agentTemplate = require('../templates/agent.hbs');
 var targetTemplate = require('../templates/target.panel.hbs');
 var stateTemplate = require('../templates/state.panel.hbs');
 var signsOfLifeTemplate = require('../templates/signs_of_life.panel.hbs');
-var validationTempalte = require('../templates/validation-panel.hbs');
-
-var victimDialog = require('../templates/victim.dialog.hbs');
 
 
 var AgentView = Backbone.View.extend({
@@ -24,9 +21,6 @@ var AgentView = Backbone.View.extend({
   targetPanelTemplate: targetTemplate,
   statePanelTemplate: stateTemplate,
   signsOfLifeTemplate: signsOfLifeTemplate,
-  validationPanelTemplate: validationTempalte,
-
-  victimDialogTemplate: victimDialog,
 
   waitingForValidation: false,
   targetID: 0,
@@ -80,7 +74,6 @@ var AgentView = Backbone.View.extend({
     this.model.subscribe();
     Dispatcher.on('agent:change:state', this.updateState, this);
     Dispatcher.on('agent:change:target', this.updateTarget, this);
-    Dispatcher.on('agent:victim:alert', this.showVictimAlert, this);
 
     Socket.on('web/signsOfLife', this.updateSignsOfLife.bind(this));
     Socket.on('web/agent/status/success', this.showAgentSuccessAlert.bind(this));
@@ -97,7 +90,6 @@ var AgentView = Backbone.View.extend({
     'click #stop-agent': 'stopAgent',
     'click #kill-agent': 'killAgent',
     'click #change-robot-mode': 'changeRobotMode',
-    'click #show-validation-panel': 'showValidationPanel',
     'click #update-victim-info': 'updateVictimInfo'
   },
 
@@ -129,20 +121,6 @@ var AgentView = Backbone.View.extend({
     Socket.emit('web/victimProbabilities/get', this.targetID);
 
     console.log(this.targetID);
-  },
-
-  showValidationPanel: function() {
-    console.log('Show victim alert');
-    this.waitingForValidation = true;
-
-    this.render();
-    this.model.set({validationImageTopic: '/kinect/rgb/image_raw'});
-
-    // Show the modal.
-    this.renderPartial(
-      this.validationPanelTemplate, '#validation-panel', 'validation panel');
-
-    return this;
   },
 
   changeRobotMode: function(event) {
@@ -260,49 +238,6 @@ var AgentView = Backbone.View.extend({
     this.renderPartial(this.statePanelTemplate, '#robot-state-panel', 'state panel');
     this.renderPartial(this.targetPanelTemplate, '#target-panel', 'target panel');
     this.renderPartial(this.signsOfLifeTemplate, '#signs-of-life-probabilities', 'signs-of-life panel');
-
-    if (this.waitingForValidation === true) {
-      this.renderPartial(
-        this.validationPanelTemplate, '#validation-panel', 'validation panel');
-    }
-
-    return this;
-  },
-
-  showVictimAlert: function() {
-    console.log('Show victim alert');
-    this.waitingForValidation = true;
-
-    this.render();
-    this.model.set({validationImageTopic: '/kinect/rgb/image_raw'});
-
-    var alert = this.model.get('alert');
-    this.targetID = alert.id;
-    Socket.emit('web/victimProbabilities/get', this.targetID);
-
-    // Show the modal.
-    this.renderPartial(
-      this.validationPanelTemplate, '#validation-panel', 'validation panel');
-
-    // Show stacked notification.
-    new PNotify({
-      title: 'Victim arrived',
-      text: "Go to agent's panel to validate it",
-      hide: false,
-      type: 'success',
-      confirm: {
-        confirm: true
-      },
-      buttons: {
-        closer: false
-      },
-      history: {
-        history: false
-      }
-    }).get().on('pnotify.confirm', function() {
-      console.log('Moving to the validation panel.');
-      window.location = '/#/agent';
-    });
 
     return this;
   },

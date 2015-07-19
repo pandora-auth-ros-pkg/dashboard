@@ -8,7 +8,6 @@ var ioClient = require('../ros-events');
  */
 
 var qrAlertTemplate = require('../templates/alert.qr.hbs');
-var victimAlertTemplate = require('../templates/alert.victim.hbs');
 
 /**
  * Alert Model
@@ -22,7 +21,6 @@ var AlertView = Backbone.View.extend({
   el: '#alert-feed',
 
   qrTemplate: qrAlertTemplate,
-  victimTemplate: victimAlertTemplate,
 
   events: {
     'click .clean-alerts': 'cleanAlerts',
@@ -67,7 +65,6 @@ var AlertView = Backbone.View.extend({
     ioClient.on('web/alert/thermal', this.appendThermalAlert.bind(this));
     ioClient.on('web/alert/sound', this.appendSoundAlert.bind(this));
 
-    ioClient.on('web/victim/alert', this.appendVictimAlert.bind(this));
   },
 
   /**
@@ -220,20 +217,6 @@ var AlertView = Backbone.View.extend({
     this.$el.append(this.qrTemplate(alert.toJSON()));
 
   },
-
-  appendVictimAlert: function(msg) {
-
-    var alert = new Alert(msg);
-    alert.set({'type': 'Victim'});
-    alert.set({'id': this.victims.length + 1});
-    this.victims.push(alert);
-
-    this.$el.append(this.victimTemplate(alert.toJSON()));
-  },
-
-  cleanAlerts: function() {
-  },
-
 
   render: function() {
 

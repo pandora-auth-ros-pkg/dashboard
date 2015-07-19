@@ -4,16 +4,6 @@
         "name": "agent-controller",
         "exec_mode": "fork",
         "watch": true
-    },
-    {
-        "script": "./services/remotes/victim-validator.py",
-        "name": "victim-validator",
-        "exec_interpreter": "python",
-        "exec_mode": "fork",
-        "watch": true,
-        "args": [
-            "192.168.0.140"
-        ]
     }
 ]
 
