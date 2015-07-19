@@ -199,6 +199,13 @@ var AlertView = Backbone.View.extend({
     var alert = new Alert(msg);
     alert.set({'type': 'QR'});
 
+    // If a qr already exists.
+    for (var i = 0; i < this.qrs.length; i++) {
+      if (this.qrs[i].get('content') == msg.content) {
+        return;
+      }
+    }
+
     // Show stacked notification.
     new PNotify({
       title: 'A QR arrived',
@@ -206,13 +213,6 @@ var AlertView = Backbone.View.extend({
       hide: false,
       type: 'success'
     });
-
-    // If a qr already exists.
-    for (var i = 0; i < this.qrs.length; i++) {
-      if (this.qrs[i].get('content') == msg.content) {
-        return;
-      }
-    }
 
     this.qrs.push(alert);
 
