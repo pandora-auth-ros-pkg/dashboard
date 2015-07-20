@@ -28,6 +28,22 @@ var AlertView = Backbone.View.extend({
     'click .alert-info': 'showAlertInfo'
   },
 
+  lastVisualAlert: new Date().getTime() / 1000,
+  lastSoundAlert: new Date().getTime() / 1000,
+  lastCo2Alert: new Date().getTime() / 1000,
+  lastHazmatAlert: new Date().getTime() / 1000,
+  lastThermalAlert: new Date().getTime() / 1000,
+  lastMotionAlert: new Date().getTime() / 1000,
+
+  visualRate: 5,
+  soundRate: 3,
+  co2Rate: 3,
+  hazmatRate: 3,
+  thermalRate: 5,
+  motionRate: 4,
+
+  maxAlertRate: 2,
+
   initialize: function() {
     this.enableAlerts = true;
 
@@ -78,15 +94,12 @@ var AlertView = Backbone.View.extend({
    */
 
   qrs: [],
-  hazmats: [],
-  co2: [],
-  visualVictims: [],
-  thermal: [],
-  sound: [],
-  motion: [],
 
   appendHazmatAlert: function(msg) {
     if (this.enableAlerts === false) return;
+    if (this.dropAlert(this.hazmatRate, this.lastHazmatAlert) === true) return;
+
+    this.lastHazmatAlert = new Date().getTime() / 1000;
 
     console.log('A Hazmat alert has arrived.');
 
@@ -96,20 +109,15 @@ var AlertView = Backbone.View.extend({
       hide: false,
       type: 'success'
     });
-
-    var alert = new Alert(msg);
-    alert.set({'type': 'Hazmat'});
-    this.hazmats.push(alert);
   },
 
   appendThermalAlert: function(msg) {
     if (this.enableAlerts === false) return;
+    if (this.dropAlert(this.thermalRate, this.lastThermalAlert) === true) return;
+
+    this.lastThermalAlert = new Date().getTime() / 1000
 
     console.log('A Thermal alert has arrived.');
-
-    var alert = new Alert(msg);
-    alert.set({'type': 'Thermal'});
-    this.thermal.push(alert);
 
     new PNotify({
       title: 'Thermal alert',
@@ -121,12 +129,11 @@ var AlertView = Backbone.View.extend({
 
   appendCo2Alert: function(msg) {
     if (this.enableAlerts === false) return;
+    if (this.dropAlert(this.co2Rate, this.lastCo2Alert) === true) return;
+
+    this.lastCo2Alert = new Date().getTime() / 1000;
 
     console.log('A Co2 alert has arrived.');
-
-    var alert = new Alert(msg);
-    alert.set({'type': 'CO2'});
-    this.co2.push(alert);
 
     new PNotify({
       title: 'Co2 alert',
@@ -138,12 +145,11 @@ var AlertView = Backbone.View.extend({
 
   appendMotionAlert: function(msg) {
     if (this.enableAlerts === false) return;
+    if (this.dropAlert(this.motionRate, this.lastMotionAlert) === true) return;
+
+    this.lastMotionAlert = new Date().getTime() / 1000;
 
     console.log('A motion alert has arrived.');
-
-    var alert = new Alert(msg);
-    alert.set({'type': 'Motion'});
-    this.motion.push(alert);
 
     new PNotify({
       title: 'Motion alert',
@@ -155,13 +161,12 @@ var AlertView = Backbone.View.extend({
 
   appendSoundAlert: function(msg) {
     if (this.enableAlerts === false) return;
+    if (this.dropAlert(this.soundRate, this.lastSoundAlert) === true) return;
     if (msg.word == 0) return;
 
-    console.log('A sound alert has arrived.');
+    this.lastSoundAlert = new Date().getTime() / 1000;
 
-    var alert = new Alert(msg);
-    alert.set({'type': 'Sound'});
-    this.sound.push(alert);
+    console.log('A sound alert has arrived.');
 
     new PNotify({
       title: 'Sound alert',
@@ -173,12 +178,11 @@ var AlertView = Backbone.View.extend({
 
   appendVisualAlert: function(msg) {
     if (this.enableAlerts === false) return;
+    if (this.dropAlert(this.visualRate, this.lastVisualAlert) === true) return;
+
+    this.lastVisualAlert = new Date().getTime() / 1000;
 
     console.log('A visual alert has arrived.');
-
-    var alert = new Alert(msg);
-    alert.set({'type': 'Visual'});
-    this.visualVictims.push(alert);
 
     new PNotify({
       title: 'Visual alert',
@@ -215,6 +219,19 @@ var AlertView = Backbone.View.extend({
 
     // Append the alert into the list.
     this.$el.append(this.qrTemplate(alert.toJSON()));
+
+  },
+
+  dropAlert: function(rate, lastAlert) {
+
+    var timeOfCurrentAlert = new Date().getTime() / 1000;
+    var timeFromLastAlert = timeOfCurrentAlert - lastAlert
+
+    if (timeFromLastAlert < rate) {
+      return true;
+    } else {
+      return false;
+    }
 
   },
 
